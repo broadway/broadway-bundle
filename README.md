@@ -1,7 +1,7 @@
-Symfony Bundle
-==============
+Broadway Bundle
+===============
 
-Symfony bundle to integrate Broadway into your symfony application.
+Symfony bundle to integrate Broadway into your Symfony application.
 
 > Note: this bundle is far from complete. Please let us know (or send a pull
 > request) if you miss any configuration options, etc!
