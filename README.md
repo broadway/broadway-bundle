@@ -110,7 +110,10 @@ broadway:
         repository:           ~ # One of "in_memory"; "elasticsearch"
         elasticsearch:
             hosts:
-
                 # Default:
                 - localhost:9200
+    serializer:
+        payload:              ~ # default: broadway.simple_interface_serializer
+        readmodel:            ~ # default: broadway.simple_interface_serializer
+        metadata:             ~ # default: broadway.simple_interface_serializer
 ```
