@@ -47,7 +47,8 @@
     "instaclick/base-test-bundle": "~0.5",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "~2.4",
-    "phpunit/phpunit": "^4.8"
+    "phpunit/phpunit": "^4.8",
+    "matthiasnoback/symfony-config-test": "^2.0"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface"
