@@ -11,6 +11,7 @@
             <argument type="service" id="broadway.serializer.metadata" />
             <argument>%broadway.event_store.dbal.table%</argument>
             <argument>%broadway.event_store.dbal.use_binary%</argument>
+            <argument type="service" id="broadway.uuid.generator" />
         </service>
     </services>
 </container>
