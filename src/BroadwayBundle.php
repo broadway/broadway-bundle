@@ -44,7 +44,7 @@ class BroadwayBundle extends Bundle
         $container->addCompilerPass(
             new RegisterBusSubscribersCompilerPass(
                 'broadway.command_handling.command_bus',
-                'command_handler',
+                'broadway.command_handler',
                 \Broadway\CommandHandling\CommandHandlerInterface::class
             )
         );
