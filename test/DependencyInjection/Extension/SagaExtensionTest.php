@@ -97,8 +97,9 @@ class SagaExtensionTest extends AbstractExtensionTestCase
                 'repository' => 'mongodb',
                 'mongodb'    => [
                     'connection' => [
-                        'dsn'     => $dsn,
-                        'options' => $options,
+                        'dsn'      => $dsn,
+                        'database' => 'my_database',
+                        'options'  => $options,
                     ],
                 ],
             ],
