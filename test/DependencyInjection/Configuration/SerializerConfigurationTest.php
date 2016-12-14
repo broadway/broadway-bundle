@@ -44,4 +44,30 @@ class SerializerConfigurationTest extends TestCase
             'serializer'
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_configures_custom_serializers()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                'broadway' => [
+                    'serializer' => [
+                        'payload'   => 'my_payload_serializer',
+                        'readmodel' => 'my_read_model_serializer',
+                        'metadata'  => 'my_metadata_serializer',
+                    ],
+                ],
+            ],
+            [
+                'serializer' => [
+                    'payload'   => 'my_payload_serializer',
+                    'readmodel' => 'my_read_model_serializer',
+                    'metadata'  => 'my_metadata_serializer',
+                ]
+            ],
+            'serializer'
+        );
+    }
 }
