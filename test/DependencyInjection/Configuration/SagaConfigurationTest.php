@@ -30,17 +30,34 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
+    public function it_does_not_set_defaults()
+    {
+        $this->assertProcessedConfigurationEquals([], [], 'saga');
+    }
+
+    /**
+     * @test
+     */
     public function it_sets_mongodb_as_default_state_repository()
     {
         $this->assertProcessedConfigurationEquals(
-            [],
+            [
+                'broadway' => [
+                    'saga' => [],
+                ],
+            ],
             [
                 'saga' => [
                     'repository' => 'mongodb',
                     'mongodb'    => [
                         'storage_suffix' => null,
-                    ]
-                ]
+                        'connection'     => [
+                            'dsn'      => null,
+                            'database' => null,
+                            'options'  => [],
+                        ],
+                    ],
+                ],
             ],
             'saga'
         );
@@ -73,6 +90,16 @@ class SagaConfigurationTest extends TestCase
                 'broadway' => [
                     'saga' => [
                         'repository' => 'mongodb',
+                        'mongodb'    => [
+                            'connection'     => [
+                                'dsn'      => 'mongodb://12.34.45.6:27018/awesome',
+                                'database' => 'my_database',
+                                'options'  => [
+                                    'connectTimeoutMS' => 50,
+                                ],
+                            ],
+                            'storage_suffix' => 'my_suffix',
+                        ],
                     ],
                 ],
             ],
@@ -80,9 +107,16 @@ class SagaConfigurationTest extends TestCase
                 'saga' => [
                     'repository' => 'mongodb',
                     'mongodb'    => [
-                        'storage_suffix' => null,
-                    ]
-                ]
+                        'connection'     => [
+                            'dsn'      => 'mongodb://12.34.45.6:27018/awesome',
+                            'database' => 'my_database',
+                            'options'  => [
+                                'connectTimeoutMS' => 50,
+                            ],
+                        ],
+                        'storage_suffix' => 'my_suffix',
+                    ],
+                ],
             ],
             'saga'
         );
@@ -106,8 +140,13 @@ class SagaConfigurationTest extends TestCase
                     'repository' => 'in_memory',
                     'mongodb'    => [
                         'storage_suffix' => null, // @todo remove this as it is not related to in memory repository
-                    ]
-                ]
+                        'connection'     => [
+                            'dsn'      => null,
+                            'database' => null,
+                            'options'  => [],
+                        ],
+                    ],
+                ],
             ],
             'saga'
         );

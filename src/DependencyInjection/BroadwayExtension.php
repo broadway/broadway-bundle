@@ -33,13 +33,16 @@ class BroadwayExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         $loader->load('services.xml');
-        $loader->load('saga.xml');
 
-        $this->loadSagaStateRepository($config['saga'], $container, $loader);
         $this->loadReadModelRepository($config['read_model'], $container, $loader);
         $this->loadCommandBus($config['command_handling'], $container, $loader);
         $this->loadEventStore($config['event_store'], $container, $loader);
         $this->loadSerializers($config['serializer'], $container, $loader);
+
+        if (isset($config['saga'])) {
+            $loader->load('saga.xml');
+            $this->loadSagaStateRepository($config['saga'], $container, $loader);
+        }
     }
 
     private function loadCommandBus(array $config, ContainerBuilder $container, LoaderInterface $loader)

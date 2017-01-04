@@ -29,14 +29,12 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_aliases_the_mongodb_saga_state_repository_by_default()
+    public function it_does_not_configure_saga_by_default()
     {
         $this->load([]);
 
-        $this->assertContainerBuilderHasAlias(
-            'broadway.saga.state.repository',
-            'broadway.saga.state.mongodb_repository'
-        );
+        $this->assertContainerBuilderNotHasService('broadway.saga.state.state_manager');
+        $this->assertContainerBuilderNotHasService('broadway.saga.state.repository');
     }
 
     /**
@@ -77,7 +75,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
      */
     public function it_defaults_to_empty_string_when_no_storage_suffix_is_configured()
     {
-        $this->load([]);
+        $this->load(['saga' => []]);
 
         $this->assertContainerBuilderHasParameter('broadway.saga.mongodb.storage_suffix', '');
     }
