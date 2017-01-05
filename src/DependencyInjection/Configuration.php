@@ -87,6 +87,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('saga')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->enumNode('repository')
                             ->values(['in_memory', 'mongodb'])
