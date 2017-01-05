@@ -68,22 +68,4 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
             ]
         );
     }
-
-    /**
-     * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Unknown Stream Decorator service known as broadway.metadata_enriching_event_stream_decorator
-     */
-    public function it_throws_when_no_enriching_stream_decorator_service_defined_or_aliased()
-    {
-        $this->compile();
-    }
-
-    /**
-     * @test
-     */
-    public function compilation_should_not_fail_with_empty_container()
-    {
-        $this->markTestSkipped('see self::it_throws_when_no_enriching_stream_decorator_service_defined_or_aliased');
-    }
 }

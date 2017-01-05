@@ -19,7 +19,12 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         foreach (array('metadata', 'payload', 'readmodel') as $serializer) {
-            $id = $container->getParameter(sprintf('broadway.serializer.%s.service_id', $serializer));
+            $serviceParameter = sprintf('broadway.serializer.%s.service_id', $serializer);
+            if (!$container->hasParameter($serviceParameter)) {
+                continue;
+            }
+
+            $id = $container->getParameter($serviceParameter);
 
             if (! $container->hasDefinition($id)) {
                 throw new \InvalidArgumentException(sprintf(
