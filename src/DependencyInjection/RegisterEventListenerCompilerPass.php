@@ -41,9 +41,7 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->eventDispatcherId) && !$container->hasAlias($this->eventDispatcherId)) {
-            throw new RuntimeException(
-                sprintf('Unknown Event Dispatcher service known as %s', $this->eventDispatcherId)
-            );
+            return;
         }
 
         $definition = $container->findDefinition($this->eventDispatcherId);

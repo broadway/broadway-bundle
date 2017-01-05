@@ -70,22 +70,4 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
             ]
         );
     }
-
-    /**
-     * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Unknown Bus service known as broadway.event_handling.event_bus
-     */
-    public function it_throws_when_no_event_bus_service_defined_or_aliased()
-    {
-        $this->compile();
-    }
-
-    /**
-     * @test
-     */
-    public function compilation_should_not_fail_with_empty_container()
-    {
-        $this->markTestSkipped('see self::it_throws_when_no_event_bus_service_defined_or_aliased');
-    }
 }

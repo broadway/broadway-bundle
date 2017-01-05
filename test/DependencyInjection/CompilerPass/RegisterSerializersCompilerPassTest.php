@@ -57,13 +57,4 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
     }
-
-    /**
-     * @test
-     */
-    public function compilation_should_not_fail_with_empty_container()
-    {
-        // @see self::it_throws_when_serializer_has_no_definition()
-        $this->markTestSkipped();
-    }
 }

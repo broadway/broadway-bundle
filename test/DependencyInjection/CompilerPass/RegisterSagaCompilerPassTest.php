@@ -12,7 +12,6 @@
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
-use Broadway\Saga\SagaInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -84,23 +83,5 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('my_saga_1', $saga1);
 
         $this->compile();
-    }
-
-    /**
-     * @test
-     * @expectedException LogicException
-     * @expectedExceptionMessage Unknown saga manager service known as broadway.saga.multiple_saga_manager
-     */
-    public function it_throws_when_no_saga_manager_service_defined()
-    {
-        $this->compile();
-    }
-
-    /**
-     * @test
-     */
-    public function compilation_should_not_fail_with_empty_container()
-    {
-        $this->markTestSkipped('see self::it_throws_when_no_saga_manager_service_defined');
     }
 }

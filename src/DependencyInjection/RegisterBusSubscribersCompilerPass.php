@@ -45,7 +45,7 @@ class RegisterBusSubscribersCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->busService) && !$container->hasAlias($this->busService)) {
-            throw new RuntimeException(sprintf('Unknown Bus service known as %s', $this->busService));
+            return;
         }
 
         $definition = $container->findDefinition($this->busService);

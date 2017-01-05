@@ -33,9 +33,7 @@ class RegisterSagaCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         if (!$container->has($this->multipleSagaManagerService)) {
-            throw new \LogicException(
-                sprintf('Unknown saga manager service known as %s', $this->multipleSagaManagerService)
-            );
+            return;
         }
 
         $sagas = [];

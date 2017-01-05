@@ -98,22 +98,4 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
     }
-
-    /**
-     * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Unknown Event Dispatcher service known as broadway.event_dispatcher
-     */
-    public function it_throws_when_no_event_dispatcher_service_defined_or_aliased()
-    {
-        $this->compile();
-    }
-
-    /**
-     * @test
-     */
-    public function compilation_should_not_fail_with_empty_container()
-    {
-        $this->markTestSkipped('see self::it_throws_when_no_event_dispatcher_service_defined_or_aliased');
-    }
 }
