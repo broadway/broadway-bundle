@@ -55,33 +55,33 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('event_store')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('dbal')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')
-                                    ->defaultTrue()
-                                ->end()
-                                ->scalarNode('table')
-                                    ->defaultValue('events')
-                                ->end()
-                                ->scalarNode('connection')
-                                    ->defaultValue('default')
-                                ->end()
-                                ->booleanNode('use_binary')
-                                    ->defaultFalse()
-                                    ->validate()
-                                    ->ifTrue()
-                                        ->then(function ($v) {
-                                            if (Version::compare('2.5.0') >= 0) {
-                                                throw new InvalidConfigurationException(
-                                                    'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
-                                                );
-                                            }
+                        ->enumNode('type')
+                            ->values(['in_memory', 'dbal', 'service'])
+                            ->defaultValue('in_memory')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                        ->end()
+                        ->scalarNode('id')
+                        ->end()
+                        ->scalarNode('table')
+                            ->defaultValue('events')
+                        ->end()
+                        ->scalarNode('connection')
+                            ->defaultValue('default')
+                        ->end()
+                        ->booleanNode('use_binary')
+                            ->defaultFalse()
+                            ->validate()
+                            ->ifTrue()
+                                ->then(function ($v) {
+                                    if (Version::compare('2.5.0') >= 0) {
+                                        throw new InvalidConfigurationException(
+                                            'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
+                                        );
+                                    }
 
-                                            return $v;
-                                        })
-                                    ->end()
-                                ->end()
+                                    return $v;
+                                })
                             ->end()
                         ->end()
                     ->end()
