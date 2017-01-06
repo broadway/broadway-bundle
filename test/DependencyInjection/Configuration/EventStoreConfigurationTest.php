@@ -30,18 +30,100 @@ class EventStoreConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_configures_dbal_as_default_event_store()
+    public function it_configures_the_default_event_store()
     {
         $this->assertProcessedConfigurationEquals(
             [],
             [
                 'event_store' => [
-                    'dbal'    => [
-                        'enabled'    => true,
-                        'table'      => 'events',
-                        'connection' => 'default',
-                        'use_binary' => false,
-                    ]
+                    'type'       => 'in_memory',
+
+                    // these are not applicable to in_memory type
+                    'table'      => 'events',
+                    'connection' => 'default',
+                    'use_binary' => false,
+                ]
+            ],
+            'event_store'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_the_dbal_event_store_with_defaults()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                'broadway' => [
+                    'event_store' => [
+                        'type' => 'dbal',
+                    ],
+                ],
+            ],
+            [
+                'event_store' => [
+                    'type'       => 'dbal',
+                    'table'      => 'events',
+                    'connection' => 'default',
+                    'use_binary' => false,
+                ],
+            ],
+            'event_store'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_the_dbal_event_store()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                'broadway' => [
+                    'event_store' => [
+                        'type'       => 'dbal',
+                        'table'      => 'my_events_table',
+                        'connection' => 'my_doctrine_connection',
+                        'use_binary' => true,
+                    ],
+                ],
+            ],
+            [
+                'event_store' => [
+                        'type'       => 'dbal',
+                        'table'      => 'my_events_table',
+                        'connection' => 'my_doctrine_connection',
+                        'use_binary' => true,
+                ],
+            ],
+            'event_store'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_a_custom_event_store()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                'broadway' => [
+                    'event_store' => [
+                        'type' => 'service',
+                        'id'   => 'my_event_store_service',
+                    ],
+                ],
+            ],
+            [
+                'event_store' => [
+                    'type' => 'service',
+                    'id'   => 'my_event_store_service',
+
+                    // these are not applicable to service type
+                    'table'      => 'events',
+                    'connection' => 'default',
+                    'use_binary' => false,
                 ]
             ],
             'event_store'

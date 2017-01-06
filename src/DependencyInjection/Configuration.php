@@ -53,36 +53,46 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('event_store')
+                    ->example([
+                        'type' => 'dbal',
+                    ])
+                    ->example([
+                        'type' => 'service',
+                        'id'   => 'my_event_store',
+                    ])
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('dbal')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')
-                                    ->defaultTrue()
-                                ->end()
-                                ->scalarNode('table')
-                                    ->defaultValue('events')
-                                ->end()
-                                ->scalarNode('connection')
-                                    ->defaultValue('default')
-                                ->end()
-                                ->booleanNode('use_binary')
-                                    ->defaultFalse()
-                                    ->validate()
-                                    ->ifTrue()
-                                        ->then(function ($v) {
-                                            if (Version::compare('2.5.0') >= 0) {
-                                                throw new InvalidConfigurationException(
-                                                    'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
-                                                );
-                                            }
+                        ->enumNode('type')
+                            ->values(['in_memory', 'dbal', 'service'])
+                            ->defaultValue('in_memory')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                            ->info('One of "in_memory", "dbal", "service"')
+                        ->end()
+                        ->scalarNode('id')
+                            ->info('The service id of your event store (required for type "service"')
+                        ->end()
+                        ->scalarNode('table')
+                            ->defaultValue('events')
+                        ->end()
+                        ->scalarNode('connection')
+                            ->defaultValue('default')
+                        ->end()
+                        ->booleanNode('use_binary')
+                            ->defaultFalse()
+                            ->validate()
+                            ->ifTrue()
+                                ->then(function ($v) {
+                                    if (Version::compare('2.5.0') >= 0) {
+                                        throw new InvalidConfigurationException(
+                                            'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
+                                        );
+                                    }
 
-                                            return $v;
-                                        })
-                                    ->end()
-                                ->end()
+                                    return $v;
+                                })
                             ->end()
+                            ->info('If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0')
                         ->end()
                     ->end()
                 ->end()
