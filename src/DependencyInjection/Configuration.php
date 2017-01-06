@@ -53,6 +53,13 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('event_store')
+                    ->example([
+                        'type' => 'dbal',
+                    ])
+                    ->example([
+                        'type' => 'service',
+                        'id'   => 'my_event_store',
+                    ])
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->enumNode('type')
@@ -60,8 +67,10 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue('in_memory')
                             ->isRequired()
                             ->cannotBeEmpty()
+                            ->info('One of "in_memory", "dbal", "service"')
                         ->end()
                         ->scalarNode('id')
+                            ->info('The service id of your event store (required for type "service"')
                         ->end()
                         ->scalarNode('table')
                             ->defaultValue('events')
@@ -83,6 +92,7 @@ class Configuration implements ConfigurationInterface
                                     return $v;
                                 })
                             ->end()
+                            ->info('If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0')
                         ->end()
                     ->end()
                 ->end()
