@@ -15,7 +15,7 @@ use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Broadway\Bundle\BroadwayBundle\TestCase;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 
-class SerializerConfigurationTest extends TestCase
+class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -25,6 +25,34 @@ class SerializerConfigurationTest extends TestCase
     protected function getConfiguration()
     {
         return new Configuration();
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_in_memory_as_default_event_store()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [],
+            [
+                'event_store' => 'broadway.event_store.in_memory',
+            ],
+            'event_store'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_configures_in_memory_as_default_read_model_repository()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [],
+            [
+                'read_model' => 'broadway.read_model.in_memory.repository_factory',
+            ],
+            'read_model'
+        );
     }
 
     /**

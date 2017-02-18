@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
 
-use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass\RegisterSagaCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
