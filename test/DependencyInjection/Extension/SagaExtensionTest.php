@@ -61,6 +61,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([
             'saga' => [
+                'repository' => 'mongodb',
                 'mongodb' => [
                     'storage_suffix' => 'foo_suffix'
                 ]
@@ -75,7 +76,9 @@ class SagaExtensionTest extends AbstractExtensionTestCase
      */
     public function it_defaults_to_empty_string_when_no_storage_suffix_is_configured()
     {
-        $this->load(['saga' => []]);
+        $this->load(['saga' => [
+            'repository' => 'mongodb',
+        ]]);
 
         $this->assertContainerBuilderHasParameter('broadway.saga.mongodb.storage_suffix', '');
     }

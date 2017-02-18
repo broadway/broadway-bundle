@@ -29,13 +29,13 @@ class ReadModelExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_sets_elasticsearch_as_default_read_model_repository_factory()
+    public function it_sets_in_memory_as_default_read_model_repository_factory()
     {
         $this->load([]);
 
         $this->assertContainerBuilderHasAlias(
             'broadway.read_model.repository_factory',
-            'broadway.read_model.elasticsearch.repository_factory'
+            'broadway.read_model.in_memory.repository_factory'
         );
     }
 

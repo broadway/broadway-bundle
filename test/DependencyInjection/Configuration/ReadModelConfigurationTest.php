@@ -30,13 +30,13 @@ class ReadModelConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_configures_elasticsearch_as_default_read_model_repository()
+    public function it_configures_in_memory_as_default_read_model_repository()
     {
         $this->assertProcessedConfigurationEquals(
             [],
             [
                 'read_model' => [
-                    'repository'    => 'elasticsearch',
+                    'repository'    => 'in_memory',
                     'elasticsearch' => [
                         'hosts' => [
                             'localhost:9200',

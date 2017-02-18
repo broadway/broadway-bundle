@@ -38,7 +38,7 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_sets_mongodb_as_default_state_repository()
+    public function it_sets_in_memory_as_default_state_repository()
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -48,7 +48,7 @@ class SagaConfigurationTest extends TestCase
             ],
             [
                 'saga' => [
-                    'repository' => 'mongodb',
+                    'repository' => 'in_memory',
                     'mongodb'    => [
                         'storage_suffix' => null,
                         'connection'     => [
