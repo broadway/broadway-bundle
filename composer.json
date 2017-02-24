@@ -42,7 +42,6 @@
     }
   ],
   "require-dev": {
-    "broadway/event-store-dbal": "^0.1",
     "elasticsearch/elasticsearch": "~1.0|^2.0",
     "instaclick/base-test-bundle": "~0.5",
     "monolog/monolog": "~1.8",
@@ -52,7 +51,8 @@
     "matthiasnoback/symfony-dependency-injection-test": "^1.1"
   },
   "suggest": {
-    "psr/log-implementation": "Implementation for PSR3, LoggerInterface"
+    "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
+    "broadway/event-store-dbal": "Event store implementation using doctrine/dbal"
   },
   "autoload": {
     "psr-4": {

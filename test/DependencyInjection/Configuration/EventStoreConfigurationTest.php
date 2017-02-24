@@ -30,19 +30,30 @@ class EventStoreConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_configures_in_memory_as_default_event_store()
+    public function it_allows_the_event_store_to_not_be_configured()
     {
         $this->assertProcessedConfigurationEquals(
-            [],
             [
-                'event_store' => [
-                    'dbal'    => [
-                        'enabled'    => false,
-                        'table'      => 'events',
-                        'connection' => 'default',
-                        'use_binary' => false,
-                    ]
-                ]
+                []
+            ],
+            [],
+            'event_store'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_the_event_store_to_be_configured()
+    {
+        $this->assertProcessedConfigurationEquals(
+            [
+                [
+                    'event_store' => 'my_event_store',
+                ],
+            ],
+            [
+                'event_store' => 'my_event_store',
             ],
             'event_store'
         );

@@ -27,9 +27,12 @@ class BroadwayExtension extends ConfigurableExtension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
+        if (isset($mergedConfig['event_store'])) {
+            $container->setParameter('broadway.event_store.service_id', $mergedConfig['event_store']);
+        }
+
         $this->loadReadModelRepository($mergedConfig['read_model'], $container, $loader);
         $this->loadCommandBus($mergedConfig['command_handling'], $container, $loader);
-        $this->loadEventStore($mergedConfig['event_store'], $container, $loader);
         $this->loadSerializers($mergedConfig['serializer'], $container, $loader);
 
         if (isset($mergedConfig['saga'])) {
@@ -111,44 +114,6 @@ class BroadwayExtension extends ConfigurableExtension
                 $this->configInMemory($container);
                 break;
         }
-    }
-
-    private function loadEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('event_store.xml');
-
-        if ($config['dbal']['enabled']) {
-            $this->loadDBALEventStore($config, $container, $loader);
-        } else {
-            $container->setAlias(
-                'broadway.event_store',
-                'broadway.event_store.in_memory'
-            );
-        }
-    }
-
-    private function loadDBALEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('event_store_dbal.xml');
-        $container->setAlias(
-            'broadway.event_store',
-            'broadway.event_store.dbal'
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.connection',
-            $config['dbal']['connection']
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.table',
-            $config['dbal']['table']
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.use_binary',
-            $config['dbal']['use_binary']
-        );
     }
 
     private function loadSerializers(array $config, ContainerBuilder $container, XmlFileLoader $loader)

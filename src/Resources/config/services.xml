@@ -27,5 +27,7 @@
 
         <service id="broadway.event_dispatcher" class="Broadway\EventDispatcher\CallableEventDispatcher" />
 
+        <service id="broadway.event_store.in_memory" class="Broadway\EventStore\InMemoryEventStore" />
+
     </services>
 </container>

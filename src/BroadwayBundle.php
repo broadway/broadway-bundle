@@ -13,9 +13,9 @@ namespace Broadway\Bundle\BroadwayBundle;
 
 use Broadway\Bundle\BroadwayBundle\Command\SchemaEventStoreCreateCommand;
 use Broadway\Bundle\BroadwayBundle\Command\SchemaEventStoreDropCommand;
-use Broadway\Bundle\BroadwayBundle\DependencyInjection\DefineDBALEventStoreConnectionCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventStoreCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
@@ -23,9 +23,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * BroadwayBundle.
- */
 class BroadwayBundle extends Bundle
 {
     /**
@@ -34,6 +31,8 @@ class BroadwayBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
+
+        $container->addCompilerPass(new RegisterEventStoreCompilerPass());
 
         $container->addCompilerPass(
             new RegisterSagaCompilerPass(
@@ -66,9 +65,6 @@ class BroadwayBundle extends Bundle
                 'broadway.metadata_enriching_event_stream_decorator',
                 'broadway.metadata_enricher'
             )
-        );
-        $container->addCompilerPass(
-            new DefineDBALEventStoreConnectionCompilerPass($this->getContainerExtension()->getAlias())
         );
         $container->addCompilerPass(
             new RegisterSerializersCompilerPass()

@@ -11,10 +11,8 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Doctrine\DBAL\Version;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * Configuration definition.
@@ -52,39 +50,8 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('event_store')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('dbal')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')
-                                    ->defaultFalse()
-                                ->end()
-                                ->scalarNode('table')
-                                    ->defaultValue('events')
-                                ->end()
-                                ->scalarNode('connection')
-                                    ->defaultValue('default')
-                                ->end()
-                                ->booleanNode('use_binary')
-                                    ->defaultFalse()
-                                    ->validate()
-                                    ->ifTrue()
-                                        ->then(function ($v) {
-                                            if (Version::compare('2.5.0') >= 0) {
-                                                throw new InvalidConfigurationException(
-                                                    'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
-                                                );
-                                            }
-
-                                            return $v;
-                                        })
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
+                ->scalarNode('event_store')
+                    ->info('a service definition id implementing Broadway\EventStore\EventStoreInterface')
                 ->end()
                 ->arrayNode('saga')
                     ->children()

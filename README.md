@@ -31,6 +31,38 @@ Once enabled the bundle will expose several services, such as:
 
 ## Event Store
 
+By default the [InMemoryEventStore](https://github.com/broadway/broadway/blob/master/src/Broadway/EventStore/InMemoryEventStore.php) is
+used.
+
+Broadway provides a persisting event store implementation using `doctrine/dbal`
+in [broadway/event-store-dbal](https://github.com/broadway/event-store-dbal).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/event-store-dbal
+```
+
+You need to configure this event store in you application:
+
+```xml
+<service id="my_dbal_event_store" class="Broadway\EventStore\DBALEventStore">
+    <argument type="service" id="doctrine.dbal.default_connection" />
+    <argument type="service" id="broadway.serializer.payload" />
+    <argument type="service" id="broadway.serializer.metadata" />
+    <argument>events</argument>
+    <argument>false</argument>
+    <argument type="service" id="broadway.uuid.converter" />
+</service>
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+broadway:
+  event_store: "my_dbal_event_store"
+```
+
 To generate the mysql schema for the event store use the following command
 
 ```bash
@@ -93,15 +125,9 @@ There are some basic configuration options available at this point. The
 options are mostly targeted on providing different setups based on production
 or testing usage.
 
-> Note: at this moment the bundle will always use the default doctrine database
-> connection for the event store
-
 ```yml
 broadway:
-    event_store:
-        dbal:
-            table:            events
-            use_binary:       false # If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0
+    event_store:              ~ # a service implementing EventStoreInterface, by default the broadway.event_store.in_memory will be used
     command_handling:
         logger:               false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
     saga:
