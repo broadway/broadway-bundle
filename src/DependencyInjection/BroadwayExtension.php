@@ -40,7 +40,13 @@ class BroadwayExtension extends ConfigurableExtension
 
         if (isset($mergedConfig['saga'])) {
             $loader->load('saga.xml');
-            $this->loadSagaStateRepository($mergedConfig['saga'], $container, $loader);
+
+            if (isset($mergedConfig['saga']['state_repository'])) {
+                $container->setParameter(
+                    'broadway.saga.state.repository.service_id',
+                    $mergedConfig['saga']['state_repository']
+                );
+            }
         }
     }
 
@@ -61,47 +67,6 @@ class BroadwayExtension extends ConfigurableExtension
                 'broadway.command_handling.command_bus',
                 'broadway.command_handling.simple_command_bus'
             );
-        }
-    }
-
-    private function loadSagaStateRepository(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        switch ($config['repository']) {
-            case 'mongodb':
-                $loader->load('saga/mongodb.xml');
-                $container->setAlias(
-                    'broadway.saga.state.repository',
-                    'broadway.saga.state.mongodb_repository'
-                );
-
-                $database = 'broadway_%kernel.environment%%broadway.saga.mongodb.storage_suffix%';
-
-                if (isset($config['mongodb']['connection'])) {
-                    if (isset($config['mongodb']['connection']['database'])) {
-                        $database = $config['mongodb']['connection']['database'];
-                    }
-
-                    $mongoConnection = $container->getDefinition('broadway.saga.state.mongodb_connection');
-
-                    if (isset($config['mongodb']['connection']['dsn'])) {
-                        $mongoConnection->replaceArgument(0, $config['mongodb']['connection']['dsn']);
-                    }
-
-                    if (isset($config['mongodb']['connection']['options'])) {
-                        $mongoConnection->replaceArgument(1, $config['mongodb']['connection']['options']);
-                    }
-                }
-
-                $container->setParameter('broadway.saga.mongodb.storage_suffix', (string) $config['mongodb']['storage_suffix']);
-                $container->setParameter('broadway.saga.mongodb.database', $database);
-                break;
-            case 'in_memory':
-                $loader->load('saga/in_memory.xml');
-                $container->setAlias(
-                    'broadway.saga.state.repository',
-                    'broadway.saga.state.in_memory_repository'
-                );
-                break;
         }
     }
 

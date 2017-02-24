@@ -146,6 +146,57 @@ user, an ip address or some request token.
 
 ### Sagas
 
+Broadway provides a saga implementation using `MongoDB`
+in [broadway/broadway-saga](https://github.com/broadway/broadway-saga).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/broadway-saga
+```
+
+To enable it, add the following configuration:
+
+```yaml
+broadway:
+  saga:
+    enabled: true
+```
+
+Be default its [in memory](https://github.com/broadway/broadway-saga/blob/master/src/State/InMemoryRepository.php) state repository is configured.
+
+To use the MongoDB implementation you need to configure it:
+
+```xml
+<service id="my_saga_state_repository" class="Broadway\Saga\State\MongoDBRepository">
+    <argument type="service" id="my_mongodb_collection" />
+</service>
+
+<service id="my_mongodb_collection" class="Doctrine\MongoDB\Collection">
+    <factory service="my_mongodb_database" method="createCollection" />
+    <argument>saga-state</argument>
+</service>
+
+<service id="my_mongodb_database" class="Doctrine\MongoDB\Database">
+    <factory service="my_mongodb_connection" method="selectDatabase" />
+    <argument>%broadway.saga.mongodb.database%</argument>
+</service>
+
+<service id="my_mongodb_connection" class="Doctrine\MongoDB\Connection">
+    <argument>null</argument>
+    <argument type="collection" />
+</service>
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+broadway:
+  saga:
+    enabled: true
+    state_repository: "my_saga_state_repository"
+```
+
 Register sagas using the `broadway.saga` service tag:
  
 ```xml
@@ -164,14 +215,15 @@ or testing usage.
 
 ```yml
 broadway:
-    event_store:              ~ # a service implementing EventStoreInterface, by default the broadway.event_store.in_memory will be used
-    command_handling:
-        logger:               false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
-    saga:
-        repository:           ~ # One of "in_memory"; "mongodb"
-    read_model:               ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface, by default the broadway.read_model.in_memory.repository_factory will be used
+    event_store:          ~ # a service definition id implementing Broadway\EventStore\EventStoreInterface, by default the broadway.event_store.in_memory will be used
+    read_model:           ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface, by default the broadway.read_model.in_memory.repository_factory will be used
     serializer:
-        payload:              ~ # default: broadway.simple_interface_serializer
-        readmodel:            ~ # default: broadway.simple_interface_serializer
-        metadata:             ~ # default: broadway.simple_interface_serializer
+        payload:          ~ # default: broadway.simple_interface_serializer
+        readmodel:        ~ # default: broadway.simple_interface_serializer
+        metadata:         ~ # default: broadway.simple_interface_serializer
+    command_handling:
+        logger:           false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
+    saga:
+        enabled:          ~ # default: false 
+        state_repository: ~ # a service definition id implementing Broadway\Saga\State\RepositoryInterface, by default the broadway.saga.state.in_memory_repository will be used
 ```
