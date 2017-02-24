@@ -15,33 +15,26 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-/**
- * Dependency injection extension.
- */
-class BroadwayExtension extends Extension
+class BroadwayExtension extends ConfigurableExtension
 {
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
-        $configuration = $this->getConfiguration($configs, $container);
-        $config        = $this->processConfiguration($configuration, $configs);
-
         $loader->load('services.xml');
 
-        $this->loadReadModelRepository($config['read_model'], $container, $loader);
-        $this->loadCommandBus($config['command_handling'], $container, $loader);
-        $this->loadEventStore($config['event_store'], $container, $loader);
-        $this->loadSerializers($config['serializer'], $container, $loader);
+        $this->loadReadModelRepository($mergedConfig['read_model'], $container, $loader);
+        $this->loadCommandBus($mergedConfig['command_handling'], $container, $loader);
+        $this->loadEventStore($mergedConfig['event_store'], $container, $loader);
+        $this->loadSerializers($mergedConfig['serializer'], $container, $loader);
 
-        if (isset($config['saga'])) {
+        if (isset($mergedConfig['saga'])) {
             $loader->load('saga.xml');
-            $this->loadSagaStateRepository($config['saga'], $container, $loader);
+            $this->loadSagaStateRepository($mergedConfig['saga'], $container, $loader);
         }
     }
 
