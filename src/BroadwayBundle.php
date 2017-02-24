@@ -17,6 +17,7 @@ use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCom
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventStoreCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterReadModelRepositoryFactoryCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
 use Symfony\Component\Console\Application;
@@ -33,6 +34,7 @@ class BroadwayBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new RegisterEventStoreCompilerPass());
+        $container->addCompilerPass(new RegisterReadModelRepositoryFactoryCompilerPass());
 
         $container->addCompilerPass(
             new RegisterSagaCompilerPass(

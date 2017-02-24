@@ -31,7 +31,10 @@ class BroadwayExtension extends ConfigurableExtension
             $container->setParameter('broadway.event_store.service_id', $mergedConfig['event_store']);
         }
 
-        $this->loadReadModelRepository($mergedConfig['read_model'], $container, $loader);
+        if (isset($mergedConfig['read_model'])) {
+            $container->setParameter('broadway.read_model_repository_factory.service_id', $mergedConfig['read_model']);
+        }
+
         $this->loadCommandBus($mergedConfig['command_handling'], $container, $loader);
         $this->loadSerializers($mergedConfig['serializer'], $container, $loader);
 
@@ -102,20 +105,6 @@ class BroadwayExtension extends ConfigurableExtension
         }
     }
 
-    private function loadReadModelRepository(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        switch ($config['repository']) {
-            case 'elasticsearch':
-                $loader->load('read_model/elasticsearch.xml');
-                $this->configElasticsearch($config['elasticsearch'], $container);
-                break;
-            case 'in_memory':
-                $loader->load('read_model/in_memory.xml');
-                $this->configInMemory($container);
-                break;
-        }
-    }
-
     private function loadSerializers(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('serializers.xml');
@@ -123,27 +112,5 @@ class BroadwayExtension extends ConfigurableExtension
         foreach ($config as $serializer => $serviceId) {
             $container->setParameter(sprintf('broadway.serializer.%s.service_id', $serializer), $serviceId);
         }
-    }
-
-    private function configElasticsearch(array $config, ContainerBuilder $container)
-    {
-        $definition = $container->findDefinition('broadway.elasticsearch.client');
-
-        $definition->setArguments([
-             $config
-        ]);
-
-        $container->setAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.elasticsearch.repository_factory'
-        );
-    }
-
-    private function configInMemory(ContainerBuilder $container)
-    {
-        $container->setAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.in_memory.repository_factory'
-        );
     }
 }

@@ -75,6 +75,43 @@ The schema can be dropped using
 bin/console broadway:event-store:schema:drop
 ```
 
+## Read models
+
+By default the [in memory](https://github.com/broadway/broadway/tree/master/src/Broadway/ReadModel/InMemory) 
+read model implementation is used.
+
+Broadway provides a persisting read model implementation using `Elasticsearch`
+in [broadway/read-model-elasticsearch](https://github.com/broadway/read-model-elasticsearch).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/read-model-elasticsearch
+```
+
+You need to configure its read model repository factory in you application:
+
+```xml
+<service id="my_read_model_repository_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchRepositoryFactory">
+    <argument type="service" id="my_elasticsearch_client" />
+    <argument type="service" id="broadway.serializer.readmodel" />
+</service>
+
+<service id="my_elasticsearch_client" class="Elasticsearch\Client">
+    <factory service="broadway.elasticsearch.client_factory" method="create" />
+    <argument>%elasticsearch%</argument>
+</service>
+
+<service id="broadway.elasticsearch.client_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchClientFactory" public="false" />
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+broadway:
+  read_model: "my_read_model_repository_factory"
+```
+
 ## Tags
 
 The bundle provides several tags to use in your service configuration.
@@ -132,12 +169,7 @@ broadway:
         logger:               false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
     saga:
         repository:           ~ # One of "in_memory"; "mongodb"
-    read_model:
-        repository:           ~ # One of "in_memory"; "elasticsearch"
-        elasticsearch:
-            hosts:
-                # Default:
-                - localhost:9200
+    read_model:               ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface, by default the broadway.read_model.in_memory.repository_factory will be used
     serializer:
         payload:              ~ # default: broadway.simple_interface_serializer
         readmodel:            ~ # default: broadway.simple_interface_serializer

@@ -29,57 +29,25 @@ class ReadModelExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_sets_in_memory_as_default_read_model_repository_factory()
+    public function it_does_not_register_the_read_model_repository_factory_service_when_not_configured()
     {
         $this->load([]);
 
-        $this->assertContainerBuilderHasAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.in_memory.repository_factory'
-        );
+        $this->assertFalse($this->container->hasParameter('broadway.read_model_repository_factory.service_id'));
     }
 
     /**
      * @test
      */
-    public function it_sets_elasticsearch_parameters()
+    public function it_registers_the_read_model_repository_factory_service_when_configured()
     {
-        $options = [
-            'hosts' => [
-                'localhost:9200',
-            ],
-        ];
-
         $this->load([
-            'read_model' => [
-                'repository'    => 'elasticsearch',
-                'elasticsearch' => $options,
-            ],
+            'read_model' => 'my_read_model_repository_factory',
         ]);
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'broadway.elasticsearch.client',
-            0,
-            $options
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function it_sets_in_memory_as_read_model_repository_factory()
-    {
-        $this->load(
-            [
-                'read_model' => [
-                    'repository' => 'in_memory',
-                ],
-            ]
-        );
-
-        $this->assertContainerBuilderHasAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.in_memory.repository_factory'
+        $this->assertContainerBuilderHasParameter(
+            'broadway.read_model_repository_factory.service_id',
+            'my_read_model_repository_factory'
         );
     }
 }
