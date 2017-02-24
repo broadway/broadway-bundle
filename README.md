@@ -1,12 +1,15 @@
-Broadway Bundle
-===============
+broadway/broadway-bundle
+========================
 
 Symfony bundle to integrate Broadway into your Symfony application.
 
-> Note: this bundle is far from complete. Please let us know (or send a pull
-> request) if you miss any configuration options, etc!
+## Installation
 
-## Usage
+Install the package with composer:
+
+```
+$ composer require broadway/broadway-bundle
+```
 
 Register the bundle in your application kernel:
 
@@ -77,8 +80,41 @@ user, an ip address or some request token.
 
 ### Sagas
 
+To use sagas you can install the [broadway/broadway-saga](https://github.com/broadway/broadway-saga) package.
+
+```
+$ composer require broadway/broadway-saga
+```
+
+To use your own saga implementation
+
+
+
+```xml
+<service id="broadway.saga.state.mongodb_repository" class="Broadway\Saga\State\MongoDBRepository">
+    <argument type="service" id="broadway.saga.state.mongodb_collection" />
+</service>
+
+<service id="broadway.saga.state.mongodb_collection" class="Doctrine\MongoDB\Collection">
+    <factory service="broadway.saga.state.mongodb_database" method="createCollection" />
+    <argument>saga-state</argument>
+</service>
+
+<service id="broadway.saga.state.mongodb_database" class="Doctrine\MongoDB\Database">
+    <factory service="broadway.saga.state.mongodb_connection" method="selectDatabase" />
+    <argument>%broadway.saga.mongodb.database%</argument>
+</service>
+
+<service id="broadway.saga.state.mongodb_connection" class="Doctrine\MongoDB\Connection">
+    <argument>null</argument>
+    <argument type="collection" />
+</service>
+```
+
+
+
 Register sagas using the `broadway.saga` service tag:
- 
+
 ```xml
 <service class="ReservationSaga">
     <argument type="service" id="broadway.command_handling.command_bus" />
@@ -93,27 +129,45 @@ There are some basic configuration options available at this point. The
 options are mostly targeted on providing different setups based on production
 or testing usage.
 
-> Note: at this moment the bundle will always use the default doctrine database
-> connection for the event store
-
 ```yml
 broadway:
-    event_store:
-        dbal:
-            table:            events
-            use_binary:       false # If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0
+    event_store:      ~ # default: broadway.event_store.in_memory
+    read_model:       ~ # default: broadway.read_model.in_memory.repository_factory
+    saga:             ~ # default: broadway.saga.state.in_memory_repository
     command_handling:
-        logger:               false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
-    saga:
-        repository:           ~ # One of "in_memory"; "mongodb"
-    read_model:
-        repository:           ~ # One of "in_memory"; "elasticsearch"
-        elasticsearch:
-            hosts:
-                # Default:
-                - localhost:9200
+        logger:       false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
     serializer:
-        payload:              ~ # default: broadway.simple_interface_serializer
-        readmodel:            ~ # default: broadway.simple_interface_serializer
-        metadata:             ~ # default: broadway.simple_interface_serializer
+        payload:      ~ # default: broadway.simple_interface_serializer
+        readmodel:    ~ # default: broadway.simple_interface_serializer
+        metadata:     ~ # default: broadway.simple_interface_serializer
 ```
+
+## Event store DBAL
+
+```xml
+<service id="broadway.event_store.dbal" class="Broadway\EventStore\DBALEventStore">
+            <argument type="service" id="broadway.event_store.dbal.connection" />
+            <argument type="service" id="broadway.serializer.payload" />
+            <argument type="service" id="broadway.serializer.metadata" />
+            <argument>%broadway.event_store.dbal.table%</argument>
+            <argument>%broadway.event_store.dbal.use_binary%</argument>
+            <argument type="service" id="broadway.uuid.converter" />
+        </service>
+```        
+
+## Read model Elasticsearch
+
+```xml
+<service id="broadway.elasticsearch.client" class="Elasticsearch\Client">
+            <factory service="broadway.elasticsearch.client_factory" method="create" />
+            <argument>%elasticsearch%</argument>
+        </service>
+
+        <service id="broadway.elasticsearch.client_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchClientFactory" public="false" />
+
+        <service id="broadway.read_model.elasticsearch.repository_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchRepositoryFactory">
+            <argument type="service" id="broadway.elasticsearch.client" />
+            <argument type="service" id="broadway.serializer.readmodel" />
+        </service>
+        ```
+

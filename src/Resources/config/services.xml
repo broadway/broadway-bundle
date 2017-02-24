@@ -12,7 +12,7 @@
             <argument type="service" id="broadway.event_dispatcher" />
         </service>
 
-        <service id="broadway.event_handling.event_bus" class="Broadway\EventHandling\SimpleEventBus"  lazy="true"/>
+        <service id="broadway.event_handling.event_bus" class="Broadway\EventHandling\SimpleEventBus" lazy="true"/>
 
         <service id="broadway.uuid.converter" class="Broadway\UuidGenerator\Converter\BinaryUuidConverter" />
         
@@ -26,6 +26,12 @@
         </service>
 
         <service id="broadway.event_dispatcher" class="Broadway\EventDispatcher\EventDispatcher" />
+
+        <service id="broadway.event_store.in_memory" class="Broadway\EventStore\InMemoryEventStore" />
+
+        <service id="broadway.read_model.in_memory.repository_factory" class="Broadway\ReadModel\InMemory\InMemoryRepositoryFactory" />
+
+        <service id="broadway.simple_interface_serializer" class="Broadway\Serializer\SimpleInterfaceSerializer" />
 
     </services>
 </container>

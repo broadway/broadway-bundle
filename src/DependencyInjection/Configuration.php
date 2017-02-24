@@ -11,10 +11,8 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Doctrine\DBAL\Version;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * Configuration definition.
@@ -52,63 +50,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->arrayNode('event_store')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('dbal')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')
-                                    ->defaultTrue()
-                                ->end()
-                                ->scalarNode('table')
-                                    ->defaultValue('events')
-                                ->end()
-                                ->scalarNode('connection')
-                                    ->defaultValue('default')
-                                ->end()
-                                ->booleanNode('use_binary')
-                                    ->defaultFalse()
-                                    ->validate()
-                                    ->ifTrue()
-                                        ->then(function ($v) {
-                                            if (Version::compare('2.5.0') >= 0) {
-                                                throw new InvalidConfigurationException(
-                                                    'The Binary storage is only available with Doctrine DBAL >= 2.5.0'
-                                                );
-                                            }
-
-                                            return $v;
-                                        })
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
+                ->scalarNode('event_store')
+                    ->info('a service definition id implementing Broadway\EventStore\EventStoreInterface')
+                    ->defaultValue('broadway.event_store.in_memory')
                 ->end()
-                ->arrayNode('saga')
-                    ->children()
-                        ->enumNode('repository')
-                            ->values(['in_memory', 'mongodb'])
-                            ->defaultValue('mongodb')
-                        ->end()
-                        ->arrayNode('mongodb')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->arrayNode('connection')
-                                    ->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->scalarNode('dsn')->defaultNull()->end()
-                                        ->scalarNode('database')->defaultNull()->end()
-                                        ->arrayNode('options')
-                                            ->prototype('scalar')->end()
-                                        ->end()
-                                    ->end()
-                                ->end()
-                                ->scalarNode('storage_suffix')->defaultNull()->end()
-                            ->end()
-                        ->end()
-                    ->end()
+                ->scalarNode('saga')
+                    ->info('a service definition id implementing Broadway\Saga\State\RepositoryInterface')
+                    ->defaultValue('broadway.saga.state.in_memory_repository')
                 ->end()
                 ->arrayNode('serializer')
                     ->addDefaultsIfNotSet()
@@ -118,37 +66,9 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('metadata')->defaultValue('broadway.simple_interface_serializer')->end()
                     ->end()
                 ->end()
-                ->arrayNode('read_model')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->enumNode('repository')
-                            ->values(['in_memory', 'elasticsearch'])
-                            ->defaultValue('elasticsearch')
-                        ->end()
-                        ->arrayNode('elasticsearch')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                            ->arrayNode('hosts')
-                                ->beforeNormalization()
-                                    ->ifTrue(function ($v) {
-                                        return is_string($v);
-                                    })
-                                    ->then(function ($v) {
-                                        return [$v];
-                                    })
-                                ->end()
-                                ->defaultValue(['localhost:9200'])
-                                ->prototype('scalar')->end()
-                            ->end()
-                            ->arrayNode('connectionParams')
-                                ->children()
-                                    ->arrayNode('auth')
-                                        ->prototype('scalar')->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
+                ->scalarNode('read_model')
+                    ->info('a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface')
+                    ->defaultValue('broadway.read_model.in_memory.repository_factory')
                 ->end()
             ->end();
 

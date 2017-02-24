@@ -11,7 +11,8 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
 
-use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass\RegisterSerializersCompilerPass;
+use Broadway\Serializer\SerializerInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -31,11 +32,11 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
      */
     public function it_sets_the_serializer_aliases()
     {
-        $this->setDefinition('my_serializer', new Definition());
-
         $this->container->setParameter('broadway.serializer.payload.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.readmodel.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.metadata.service_id', 'my_serializer');
+
+        $this->setDefinition('my_serializer', new Definition(SerializerInterface::class));
 
         $this->compile();
 
@@ -47,13 +48,29 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Serializer with service id "my_serializer" could not be found
+     * @expectedExceptionMessage Service id "my_serializer" could not be found in container
      */
     public function it_throws_when_serializer_has_no_definition()
     {
         $this->container->setParameter('broadway.serializer.payload.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.readmodel.service_id', 'my_serializer');
         $this->container->setParameter('broadway.serializer.metadata.service_id', 'my_serializer');
+
+        $this->compile();
+    }
+
+    /**
+     * @test
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\Serializer\SerializerInterface".
+     */
+    public function it_throws_when_serializer_does_not_implement_serializer_interface()
+    {
+        $this->container->setParameter('broadway.serializer.payload.service_id', 'my_serializer');
+        $this->container->setParameter('broadway.serializer.readmodel.service_id', 'my_serializer');
+        $this->container->setParameter('broadway.serializer.metadata.service_id', 'my_serializer');
+
+        $this->setDefinition('my_serializer', new Definition(\stdClass::class));
 
         $this->compile();
     }

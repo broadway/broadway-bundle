@@ -12,8 +12,8 @@
     "php": ">=5.5.9",
     "broadway/broadway": "^1.0@dev",
     "doctrine/doctrine-bundle": "^1.0",
-    "symfony/console": "^2.3|^3.0",
-    "symfony/http-kernel": "^2.3|^3.0"
+    "symfony/console": "^2.3||^3.0",
+    "symfony/http-kernel": "^2.3||^3.0"
   },
   "authors": [
     {
@@ -42,8 +42,6 @@
     }
   ],
   "require-dev": {
-    "doctrine/dbal": "~2.4",
-    "elasticsearch/elasticsearch": "~1.0|^2.0",
     "instaclick/base-test-bundle": "~0.5",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "~2.4",
@@ -52,7 +50,9 @@
     "matthiasnoback/symfony-dependency-injection-test": "^1.1"
   },
   "suggest": {
-    "psr/log-implementation": "Implementation for PSR3, LoggerInterface"
+    "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
+    "doctrine/dbal": "~2.4",
+    "elasticsearch/elasticsearch": "~1.0|^2.0"
   },
   "autoload": {
     "psr-4": {
