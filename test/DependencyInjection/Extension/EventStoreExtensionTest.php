@@ -29,16 +29,16 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_has_dbal_as_default_event_store()
+    public function it_has_in_memory_as_default_event_store()
     {
         $this->load([]);
 
         $this->assertTrue(
-            $this->container->hasDefinition('broadway.event_store.dbal')
+            $this->container->hasDefinition('broadway.event_store.in_memory')
         );
         $this->assertContainerBuilderHasAlias(
             'broadway.event_store',
-            'broadway.event_store.dbal'
+            'broadway.event_store.in_memory'
         );
     }
 
@@ -50,6 +50,7 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'event_store' => [
                 'dbal' => [
+                    'enabled'    => true,
                     'connection' => 'my_connection',
                     'table'      => 'my_events_table',
                     'use_binary' => true,
@@ -76,6 +77,5 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
         ]);
 
         $this->assertContainerBuilderNotHasService('broadway.event_store.dbal');
-        $this->assertContainerBuilderNotHasService('broadway.event_store');
     }
 }

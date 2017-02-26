@@ -126,6 +126,11 @@ class BroadwayExtension extends Extension
 
         if ($config['dbal']['enabled']) {
             $this->loadDBALEventStore($config, $container, $loader);
+        } else {
+            $container->setAlias(
+                'broadway.event_store',
+                'broadway.event_store.in_memory'
+            );
         }
     }
 
