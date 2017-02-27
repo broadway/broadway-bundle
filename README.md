@@ -43,9 +43,10 @@ This can be installed using composer:
 $ composer require broadway/event-store-dbal
 ```
 
-You need to configure this event store in you application:
+You will need to configure an event store in your application's service definition:
 
 ```xml
+<!-- services.xml -->
 <service id="my_dbal_event_store" class="Broadway\EventStore\DBALEventStore">
     <argument type="service" id="doctrine.dbal.default_connection" />
     <argument type="service" id="broadway.serializer.payload" />
@@ -59,6 +60,7 @@ You need to configure this event store in you application:
 And tell the Broadway bundle to use it:
 
 ```yaml
+# config.yml
 broadway:
   event_store: "my_dbal_event_store"
 ```
@@ -92,6 +94,7 @@ $ composer require broadway/read-model-elasticsearch
 You need to configure its read model repository factory in you application:
 
 ```xml
+<!-- services.xml -->
 <service id="my_read_model_repository_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchRepositoryFactory">
     <argument type="service" id="my_elasticsearch_client" />
     <argument type="service" id="broadway.serializer.readmodel" />
@@ -108,6 +111,7 @@ You need to configure its read model repository factory in you application:
 And tell the Broadway bundle to use it:
 
 ```yaml
+# config.yml
 broadway:
   read_model: "my_read_model_repository_factory"
 ```
@@ -158,6 +162,7 @@ $ composer require broadway/broadway-saga
 To enable it, add the following configuration:
 
 ```yaml
+# config.yml
 broadway:
   saga:
     enabled: true
@@ -168,6 +173,7 @@ Be default its [in memory](https://github.com/broadway/broadway-saga/blob/master
 To use the MongoDB implementation you need to configure it:
 
 ```xml
+<!-- services.xml -->
 <service id="my_saga_state_repository" class="Broadway\Saga\State\MongoDBRepository">
     <argument type="service" id="my_mongodb_collection" />
 </service>
@@ -191,6 +197,7 @@ To use the MongoDB implementation you need to configure it:
 And tell the Broadway bundle to use it:
 
 ```yaml
+# config.yml
 broadway:
   saga:
     enabled: true
@@ -200,6 +207,7 @@ broadway:
 Register sagas using the `broadway.saga` service tag:
  
 ```xml
+<!-- services.xml -->
 <service class="ReservationSaga">
     <argument type="service" id="broadway.command_handling.command_bus" />
     <argument type="service" id="broadway.uuid.generator" />
@@ -214,6 +222,7 @@ options are mostly targeted on providing different setups based on production
 or testing usage.
 
 ```yml
+# config.yml
 broadway:
     event_store:          ~ # a service definition id implementing Broadway\EventStore\EventStoreInterface, by default the broadway.event_store.in_memory will be used
     read_model:           ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface, by default the broadway.read_model.in_memory.repository_factory will be used

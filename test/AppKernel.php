@@ -26,9 +26,10 @@ class AppKernel extends Kernel
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        // TODO: Implement registerContainerConfiguration() method.
     }
-
 }
