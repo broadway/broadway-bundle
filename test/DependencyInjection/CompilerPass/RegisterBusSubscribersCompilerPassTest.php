@@ -12,7 +12,7 @@
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
-use Broadway\EventHandling\EventListenerInterface;
+use Broadway\EventHandling\EventListener;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -29,7 +29,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
             new RegisterBusSubscribersCompilerPass(
                 'broadway.event_handling.event_bus',
                 'broadway.domain.event_listener',
-                EventListenerInterface::class
+                EventListener::class
             )
         );
     }
@@ -44,11 +44,11 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
             new Definition()
         );
 
-        $eventListener1 = new Definition(EventListenerInterface::class);
+        $eventListener1 = new Definition(EventListener::class);
         $eventListener1->addTag('broadway.domain.event_listener');
         $this->setDefinition('event_listener_1', $eventListener1);
 
-        $eventListener2 = new Definition(EventListenerInterface::class);
+        $eventListener2 = new Definition(EventListener::class);
         $eventListener2->addTag('broadway.domain.event_listener');
         $this->setDefinition('event_listener_2', $eventListener2);
 
