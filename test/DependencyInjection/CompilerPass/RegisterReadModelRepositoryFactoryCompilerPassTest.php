@@ -11,7 +11,8 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStoreInterface;
+use Broadway\EventStore\EventStore;
+use Broadway\ReadModel\RepositoryFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -49,7 +50,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
             'my_read_model_repository_factory'
         );
 
-        $this->setDefinition('my_read_model_repository_factory', new Definition(EventStoreInterface::class));
+        $this->setDefinition('my_read_model_repository_factory', new Definition(RepositoryFactory::class));
 
         $this->compile();
 
@@ -77,7 +78,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * @test
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStoreInterface".
+     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\ReadModel\RepositoryFactory".
      */
     public function it_throws_when_configured_read_model_repository_factory_does_not_implement_event_store_interface()
     {

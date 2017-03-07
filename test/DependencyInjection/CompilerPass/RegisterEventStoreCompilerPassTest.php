@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStoreInterface;
+use Broadway\EventStore\EventStore;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -43,7 +43,7 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
     {
         $this->container->setParameter('broadway.event_store.service_id', 'my_event_store');
 
-        $this->setDefinition('my_event_store', new Definition(EventStoreInterface::class));
+        $this->setDefinition('my_event_store', new Definition(EventStore::class));
 
         $this->compile();
 
@@ -65,7 +65,7 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStoreInterface".
+     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStore".
      */
     public function it_throws_when_configured_event_store_does_not_implement_event_store_interface()
     {

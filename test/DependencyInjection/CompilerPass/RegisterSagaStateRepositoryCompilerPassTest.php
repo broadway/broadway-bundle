@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStoreInterface;
+use Broadway\EventStore\EventStore;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -49,7 +49,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
             'my_saga_state_repository'
         );
 
-        $this->setDefinition('my_saga_state_repository', new Definition(EventStoreInterface::class));
+        $this->setDefinition('my_saga_state_repository', new Definition(EventStore::class));
 
         $this->compile();
 
@@ -77,7 +77,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * @test
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStoreInterface".
+     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStore".
      */
     public function it_throws_when_configured_saga_state_repository_does_not_implement_event_store_interface()
     {

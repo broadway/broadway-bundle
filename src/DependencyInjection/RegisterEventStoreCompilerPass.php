@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStoreInterface;
+use Broadway\EventStore\EventStore;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterEventStoreCompilerPass extends CompilerPass
@@ -27,7 +27,7 @@ class RegisterEventStoreCompilerPass extends CompilerPass
 
         $serviceId = $container->getParameter($serviceParameter);
 
-        $this->assertDefinitionImplementsInterface($container, $serviceId, EventStoreInterface::class);
+        $this->assertDefinitionImplementsInterface($container, $serviceId, EventStore::class);
 
         $container->setAlias('broadway.event_store', $serviceId);
     }

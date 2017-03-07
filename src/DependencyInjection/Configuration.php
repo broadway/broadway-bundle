@@ -51,7 +51,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('event_store')
-                    ->info('a service definition id implementing Broadway\EventStore\EventStoreInterface')
+                    ->info('a service definition id implementing Broadway\EventStore\EventStore')
                 ->end()
                 ->arrayNode('saga')
                     ->canBeEnabled()
@@ -70,7 +70,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('read_model')
-                    ->info('a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface')
+                    ->info('a service definition id implementing Broadway\ReadModel\RepositoryFactory')
                 ->end()
             ->end();
 

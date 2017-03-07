@@ -224,8 +224,8 @@ or testing usage.
 ```yml
 # config.yml
 broadway:
-    event_store:          ~ # a service definition id implementing Broadway\EventStore\EventStoreInterface, by default the broadway.event_store.in_memory will be used
-    read_model:           ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactoryInterface, by default the broadway.read_model.in_memory.repository_factory will be used
+    event_store:          ~ # a service definition id implementing Broadway\EventStore\EventStore, by default the broadway.event_store.in_memory will be used
+    read_model:           ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactory, by default the broadway.read_model.in_memory.repository_factory will be used
     serializer:
         payload:          ~ # default: broadway.simple_interface_serializer
         readmodel:        ~ # default: broadway.simple_interface_serializer

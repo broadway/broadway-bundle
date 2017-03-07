@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStoreInterface;
+use Broadway\ReadModel\RepositoryFactory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
@@ -27,7 +27,7 @@ class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
 
         $serviceId = $container->getParameter($serviceParameter);
 
-        $this->assertDefinitionImplementsInterface($container, $serviceId, EventStoreInterface::class);
+        $this->assertDefinitionImplementsInterface($container, $serviceId, RepositoryFactory::class);
 
         $container->setAlias('broadway.read_model.repository_factory', $serviceId);
     }
