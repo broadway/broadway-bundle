@@ -15,7 +15,7 @@
                  method="onCommandHandlingFailure"/>
         </service>
 
-        <service id="broadway.auditing.serializer" class="Broadway\Auditing\CommandSerializer"/>
+        <service id="broadway.auditing.serializer" class="Broadway\Auditing\NullByteCommandSerializer"/>
 
     </services>
 </container>

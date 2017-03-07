@@ -25,7 +25,7 @@
             <tag name="broadway.metadata_enricher" />
         </service>
 
-        <service id="broadway.event_dispatcher" class="Broadway\EventDispatcher\EventDispatcher" />
+        <service id="broadway.event_dispatcher" class="Broadway\EventDispatcher\CallableEventDispatcher" />
 
     </services>
 </container>
