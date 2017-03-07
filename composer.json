@@ -44,12 +44,15 @@
   "require-dev": {
     "broadway/event-store-dbal": "^0.1",
     "elasticsearch/elasticsearch": "~1.0|^2.0",
-    "instaclick/base-test-bundle": "~0.5",
+    "symfony/framework-bundle": "^2.3|^3.0",
     "monolog/monolog": "~1.8",
-    "symfony/proxy-manager-bridge": "~2.4",
+    "symfony/proxy-manager-bridge": "^2.3|^3.0",
     "phpunit/phpunit": "^4.8",
     "matthiasnoback/symfony-config-test": "^2.0",
-    "matthiasnoback/symfony-dependency-injection-test": "^1.1"
+    "matthiasnoback/symfony-dependency-injection-test": "^1.1",
+    "symfony/browser-kit": "^2.3|^3.0",
+    "symfony/property-access": "^2.3|^3.0",
+    "matthiasnoback/symfony-service-definition-validator": "^1.2"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface"
