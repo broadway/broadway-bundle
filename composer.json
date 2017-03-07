@@ -42,7 +42,7 @@
     }
   ],
   "require-dev": {
-    "doctrine/dbal": "~2.4",
+    "broadway/event-store-dbal": "^0.1",
     "elasticsearch/elasticsearch": "~1.0|^2.0",
     "instaclick/base-test-bundle": "~0.5",
     "monolog/monolog": "~1.8",

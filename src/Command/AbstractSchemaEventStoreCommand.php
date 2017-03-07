@@ -12,7 +12,7 @@
 namespace Broadway\Bundle\BroadwayBundle\Command;
 
 use Assert\Assertion;
-use Broadway\EventStore\DBALEventStore;
+use Broadway\EventStore\Dbal\DBALEventStore;
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
