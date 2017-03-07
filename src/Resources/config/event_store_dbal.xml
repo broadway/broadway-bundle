@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="broadway.event_store.dbal" class="Broadway\EventStore\DBALEventStore">
+        <service id="broadway.event_store.dbal" class="Broadway\EventStore\Dbal\DBALEventStore">
             <argument type="service" id="broadway.event_store.dbal.connection" />
             <argument type="service" id="broadway.serializer.payload" />
             <argument type="service" id="broadway.serializer.metadata" />
