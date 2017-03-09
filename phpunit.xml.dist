@@ -27,7 +27,4 @@
       <group>mongo</group>
     </exclude>
   </groups>
-  <php>
-    <server name="KERNEL_DIR" value="test/Functional/" />
-  </php>
 </phpunit>
