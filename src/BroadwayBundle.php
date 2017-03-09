@@ -19,9 +19,7 @@ use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerComp
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
-use Matthias\SymfonyServiceDefinitionValidator\Compiler\ValidateServiceDefinitionsPass;
 use Symfony\Component\Console\Application;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -75,13 +73,6 @@ class BroadwayBundle extends Bundle
         $container->addCompilerPass(
             new RegisterSerializersCompilerPass()
         );
-
-        if ($container->getParameter('kernel.debug')) {
-            $container->addCompilerPass(
-                new ValidateServiceDefinitionsPass(),
-                PassConfig::TYPE_AFTER_REMOVING
-            );
-        }
     }
 
     /**
