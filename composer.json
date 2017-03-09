@@ -43,6 +43,7 @@
   ],
   "require-dev": {
     "instaclick/base-test-bundle": "~0.5",
+    "doctrine/doctrine-bundle": "^1.0",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "~2.4",
     "phpunit/phpunit": "^4.8",
@@ -52,7 +53,8 @@
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
     "broadway/event-store-dbal": "Event store implementation using doctrine/dbal",
-    "broadway/read-model-elasticsearch": "Elasticsearch read model implementation using elastic/elasticsearch-php"
+    "broadway/read-model-elasticsearch": "Elasticsearch read model implementation using elastic/elasticsearch-php",
+    "doctrine/doctrine-bundle": "To use the broadway:event-store:schema commands"
   },
   "autoload": {
     "psr-4": {
