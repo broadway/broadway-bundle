@@ -100,6 +100,7 @@ or testing usage.
 broadway:
     event_store:
         dbal:
+            enabled:          true
             table:            events
             use_binary:       false # If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0
     command_handling:
