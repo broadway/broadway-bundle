@@ -47,6 +47,15 @@ bin/console broadway:event-store:schema:drop
 
 The bundle provides several tags to use in your service configuration.
 
+### Command handler
+
+Register command handler using `broadway.command_handler` service tag:
+```xml
+<service class="TestCommandHandler">
+    <tag name="broadway.command_handler" />
+</service>
+```
+
 ### Domain event listeners
 
 Register listeners (such as projectors) that respond and act on domain events:
