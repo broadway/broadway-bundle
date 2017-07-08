@@ -11,26 +11,25 @@
 
 namespace Broadway\Bundle\BroadwayBundle;
 
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
-/**
- * @group functional
- */
-class BroadwayBundleTest extends WebTestCase
+class AppKernel extends Kernel
 {
     /**
-     * @test
+     * {@inheritdoc}
      */
-    public function it_does_not_throw_when_booting_kernel()
+    public function registerBundles()
     {
-        static::bootKernel();
+        return [
+            new BroadwayBundle(),
+        ];
     }
 
     /**
      * {@inheritdoc}
      */
-    protected static function createKernel(array $options = [])
+    public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        return new AppKernel('test', true);
     }
 }

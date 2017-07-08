@@ -15,33 +15,38 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-/**
- * Dependency injection extension.
- */
-class BroadwayExtension extends Extension
+class BroadwayExtension extends ConfigurableExtension
 {
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
-        $configuration = $this->getConfiguration($configs, $container);
-        $config        = $this->processConfiguration($configuration, $configs);
-
         $loader->load('services.xml');
 
-        $this->loadReadModelRepository($config['read_model'], $container, $loader);
-        $this->loadCommandBus($config['command_handling'], $container, $loader);
-        $this->loadEventStore($config['event_store'], $container, $loader);
-        $this->loadSerializers($config['serializer'], $container, $loader);
+        if (isset($mergedConfig['event_store'])) {
+            $container->setParameter('broadway.event_store.service_id', $mergedConfig['event_store']);
+        }
 
-        if (isset($config['saga'])) {
+        if (isset($mergedConfig['read_model'])) {
+            $container->setParameter('broadway.read_model_repository_factory.service_id', $mergedConfig['read_model']);
+        }
+
+        $this->loadCommandBus($mergedConfig['command_handling'], $container, $loader);
+        $this->loadSerializers($mergedConfig['serializer'], $container, $loader);
+
+        if (isset($mergedConfig['saga'])) {
             $loader->load('saga.xml');
-            $this->loadSagaStateRepository($config['saga'], $container, $loader);
+
+            if (isset($mergedConfig['saga']['state_repository'])) {
+                $container->setParameter(
+                    'broadway.saga.state.repository.service_id',
+                    $mergedConfig['saga']['state_repository']
+                );
+            }
         }
     }
 
@@ -65,99 +70,6 @@ class BroadwayExtension extends Extension
         }
     }
 
-    private function loadSagaStateRepository(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        switch ($config['repository']) {
-            case 'mongodb':
-                $loader->load('saga/mongodb.xml');
-                $container->setAlias(
-                    'broadway.saga.state.repository',
-                    'broadway.saga.state.mongodb_repository'
-                );
-
-                $database = 'broadway_%kernel.environment%%broadway.saga.mongodb.storage_suffix%';
-
-                if (isset($config['mongodb']['connection'])) {
-                    if (isset($config['mongodb']['connection']['database'])) {
-                        $database = $config['mongodb']['connection']['database'];
-                    }
-
-                    $mongoConnection = $container->getDefinition('broadway.saga.state.mongodb_connection');
-
-                    if (isset($config['mongodb']['connection']['dsn'])) {
-                        $mongoConnection->replaceArgument(0, $config['mongodb']['connection']['dsn']);
-                    }
-
-                    if (isset($config['mongodb']['connection']['options'])) {
-                        $mongoConnection->replaceArgument(1, $config['mongodb']['connection']['options']);
-                    }
-                }
-
-                $container->setParameter('broadway.saga.mongodb.storage_suffix', (string) $config['mongodb']['storage_suffix']);
-                $container->setParameter('broadway.saga.mongodb.database', $database);
-                break;
-            case 'in_memory':
-                $loader->load('saga/in_memory.xml');
-                $container->setAlias(
-                    'broadway.saga.state.repository',
-                    'broadway.saga.state.in_memory_repository'
-                );
-                break;
-        }
-    }
-
-    private function loadReadModelRepository(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        switch ($config['repository']) {
-            case 'elasticsearch':
-                $loader->load('read_model/elasticsearch.xml');
-                $this->configElasticsearch($config['elasticsearch'], $container);
-                break;
-            case 'in_memory':
-                $loader->load('read_model/in_memory.xml');
-                $this->configInMemory($container);
-                break;
-        }
-    }
-
-    private function loadEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('event_store.xml');
-
-        if ($config['dbal']['enabled']) {
-            $this->loadDBALEventStore($config, $container, $loader);
-        } else {
-            $container->setAlias(
-                'broadway.event_store',
-                'broadway.event_store.in_memory'
-            );
-        }
-    }
-
-    private function loadDBALEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('event_store_dbal.xml');
-        $container->setAlias(
-            'broadway.event_store',
-            'broadway.event_store.dbal'
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.connection',
-            $config['dbal']['connection']
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.table',
-            $config['dbal']['table']
-        );
-
-        $container->setParameter(
-            'broadway.event_store.dbal.use_binary',
-            $config['dbal']['use_binary']
-        );
-    }
-
     private function loadSerializers(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('serializers.xml');
@@ -165,27 +77,5 @@ class BroadwayExtension extends Extension
         foreach ($config as $serializer => $serviceId) {
             $container->setParameter(sprintf('broadway.serializer.%s.service_id', $serializer), $serviceId);
         }
-    }
-
-    private function configElasticsearch(array $config, ContainerBuilder $container)
-    {
-        $definition = $container->findDefinition('broadway.elasticsearch.client');
-
-        $definition->setArguments([
-             $config
-        ]);
-
-        $container->setAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.elasticsearch.repository_factory'
-        );
-    }
-
-    private function configInMemory(ContainerBuilder $container)
-    {
-        $container->setAlias(
-            'broadway.read_model.repository_factory',
-            'broadway.read_model.in_memory.repository_factory'
-        );
     }
 }

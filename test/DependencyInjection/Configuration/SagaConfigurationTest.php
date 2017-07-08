@@ -30,34 +30,16 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_set_defaults()
-    {
-        $this->assertProcessedConfigurationEquals([], [], 'saga');
-    }
-
-    /**
-     * @test
-     */
-    public function it_sets_in_memory_as_default_state_repository()
+    public function it_allows_the_saga_state_repository_to_not_be_configured()
     {
         $this->assertProcessedConfigurationEquals(
             [
-                'broadway' => [
-                    'saga' => [],
-                ],
+                []
             ],
             [
                 'saga' => [
-                    'repository' => 'in_memory',
-                    'mongodb'    => [
-                        'storage_suffix' => null,
-                        'connection'     => [
-                            'dsn'      => null,
-                            'database' => null,
-                            'options'  => [],
-                        ],
-                    ],
-                ],
+                    'enabled' => false,
+                ]
             ],
             'saga'
         );
@@ -66,87 +48,21 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function only_in_memory_and_mongodb_are_valid_state_repositories()
-    {
-        $this->assertConfigurationIsInvalid(
-            [
-                'broadway' => [
-                    'saga' => [
-                        'repository' => 'false_name',
-                    ],
-                ],
-            ],
-            'The value "false_name" is not allowed for path "broadway.saga.repository". Permissible values: "in_memory", "mongodb"'
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function it_processes_saga_configuration_with_mongodb_repository()
+    public function it_allows_the_saga_state_repository_to_be_configured()
     {
         $this->assertProcessedConfigurationEquals(
             [
-                'broadway' => [
+                [
                     'saga' => [
-                        'repository' => 'mongodb',
-                        'mongodb'    => [
-                            'connection'     => [
-                                'dsn'      => 'mongodb://12.34.45.6:27018/awesome',
-                                'database' => 'my_database',
-                                'options'  => [
-                                    'connectTimeoutMS' => 50,
-                                ],
-                            ],
-                            'storage_suffix' => 'my_suffix',
-                        ],
-                    ],
+                        'state_repository' => 'my_saga_state_repository',
+                    ]
                 ],
             ],
             [
                 'saga' => [
-                    'repository' => 'mongodb',
-                    'mongodb'    => [
-                        'connection'     => [
-                            'dsn'      => 'mongodb://12.34.45.6:27018/awesome',
-                            'database' => 'my_database',
-                            'options'  => [
-                                'connectTimeoutMS' => 50,
-                            ],
-                        ],
-                        'storage_suffix' => 'my_suffix',
-                    ],
-                ],
-            ],
-            'saga'
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function it_processes_saga_configuration_with_in_memory_repository()
-    {
-        $this->assertProcessedConfigurationEquals(
-            [
-                'broadway' => [
-                    'saga' => [
-                        'repository' => 'in_memory',
-                    ],
-                ],
-            ],
-            [
-                'saga' => [
-                    'repository' => 'in_memory',
-                    'mongodb'    => [
-                        'storage_suffix' => null, // @todo remove this as it is not related to in memory repository
-                        'connection'     => [
-                            'dsn'      => null,
-                            'database' => null,
-                            'options'  => [],
-                        ],
-                    ],
-                ],
+                    'enabled'          => true,
+                    'state_repository' => 'my_saga_state_repository',
+                ]
             ],
             'saga'
         );

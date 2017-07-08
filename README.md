@@ -31,6 +31,40 @@ Once enabled the bundle will expose several services, such as:
 
 ## Event Store
 
+By default the [InMemoryEventStore](https://github.com/broadway/broadway/blob/master/src/Broadway/EventStore/InMemoryEventStore.php) is
+used.
+
+Broadway provides a persisting event store implementation using `doctrine/dbal`
+in [broadway/event-store-dbal](https://github.com/broadway/event-store-dbal).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/event-store-dbal
+```
+
+You will need to configure an event store in your application's service definition:
+
+```xml
+<!-- services.xml -->
+<service id="my_dbal_event_store" class="Broadway\EventStore\DBALEventStore">
+    <argument type="service" id="doctrine.dbal.default_connection" />
+    <argument type="service" id="broadway.serializer.payload" />
+    <argument type="service" id="broadway.serializer.metadata" />
+    <argument>events</argument>
+    <argument>false</argument>
+    <argument type="service" id="broadway.uuid.converter" />
+</service>
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+# config.yml
+broadway:
+  event_store: "my_dbal_event_store"
+```
+
 To generate the mysql schema for the event store use the following command
 
 ```bash
@@ -41,6 +75,45 @@ The schema can be dropped using
 
 ```bash
 bin/console broadway:event-store:schema:drop
+```
+
+## Read models
+
+By default the [in memory](https://github.com/broadway/broadway/tree/master/src/Broadway/ReadModel/InMemory) 
+read model implementation is used.
+
+Broadway provides a persisting read model implementation using `Elasticsearch`
+in [broadway/read-model-elasticsearch](https://github.com/broadway/read-model-elasticsearch).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/read-model-elasticsearch
+```
+
+You need to configure its read model repository factory in you application:
+
+```xml
+<!-- services.xml -->
+<service id="my_read_model_repository_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchRepositoryFactory">
+    <argument type="service" id="my_elasticsearch_client" />
+    <argument type="service" id="broadway.serializer.readmodel" />
+</service>
+
+<service id="my_elasticsearch_client" class="Elasticsearch\Client">
+    <factory service="broadway.elasticsearch.client_factory" method="create" />
+    <argument>%elasticsearch%</argument>
+</service>
+
+<service id="broadway.elasticsearch.client_factory" class="Broadway\ReadModel\ElasticSearch\ElasticSearchClientFactory" public="false" />
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+# config.yml
+broadway:
+  read_model: "my_read_model_repository_factory"
 ```
 
 ## Tags
@@ -86,9 +159,64 @@ user, an ip address or some request token.
 
 ### Sagas
 
+Broadway provides a saga implementation using `MongoDB`
+in [broadway/broadway-saga](https://github.com/broadway/broadway-saga).
+
+This can be installed using composer:
+
+```
+$ composer require broadway/broadway-saga
+```
+
+To enable it, add the following configuration:
+
+```yaml
+# config.yml
+broadway:
+  saga:
+    enabled: true
+```
+
+Be default its [in memory](https://github.com/broadway/broadway-saga/blob/master/src/State/InMemoryRepository.php) state repository is configured.
+
+To use the MongoDB implementation you need to configure it:
+
+```xml
+<!-- services.xml -->
+<service id="my_saga_state_repository" class="Broadway\Saga\State\MongoDBRepository">
+    <argument type="service" id="my_mongodb_collection" />
+</service>
+
+<service id="my_mongodb_collection" class="Doctrine\MongoDB\Collection">
+    <factory service="my_mongodb_database" method="createCollection" />
+    <argument>saga-state</argument>
+</service>
+
+<service id="my_mongodb_database" class="Doctrine\MongoDB\Database">
+    <factory service="my_mongodb_connection" method="selectDatabase" />
+    <argument>%broadway.saga.mongodb.database%</argument>
+</service>
+
+<service id="my_mongodb_connection" class="Doctrine\MongoDB\Connection">
+    <argument>null</argument>
+    <argument type="collection" />
+</service>
+```
+
+And tell the Broadway bundle to use it:
+
+```yaml
+# config.yml
+broadway:
+  saga:
+    enabled: true
+    state_repository: "my_saga_state_repository"
+```
+
 Register sagas using the `broadway.saga` service tag:
  
 ```xml
+<!-- services.xml -->
 <service class="ReservationSaga">
     <argument type="service" id="broadway.command_handling.command_bus" />
     <argument type="service" id="broadway.uuid.generator" />
@@ -102,28 +230,18 @@ There are some basic configuration options available at this point. The
 options are mostly targeted on providing different setups based on production
 or testing usage.
 
-> Note: at this moment the bundle will always use the default doctrine database
-> connection for the event store
-
 ```yml
+# config.yml
 broadway:
-    event_store:
-        dbal:
-            enabled:          true
-            table:            events
-            use_binary:       false # If you want to use UUIDs to be stored as BINARY(16), required DBAL >= 2.5.0
-    command_handling:
-        logger:               false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
-    saga:
-        repository:           ~ # One of "in_memory"; "mongodb"
-    read_model:
-        repository:           ~ # One of "in_memory"; "elasticsearch"
-        elasticsearch:
-            hosts:
-                # Default:
-                - localhost:9200
+    event_store:          ~ # a service definition id implementing Broadway\EventStore\EventStore, by default the broadway.event_store.in_memory will be used
+    read_model:           ~ # a service definition id implementing Broadway\ReadModel\RepositoryFactory, by default the broadway.read_model.in_memory.repository_factory will be used
     serializer:
-        payload:              ~ # default: broadway.simple_interface_serializer
-        readmodel:            ~ # default: broadway.simple_interface_serializer
-        metadata:             ~ # default: broadway.simple_interface_serializer
+        payload:          ~ # default: broadway.simple_interface_serializer
+        readmodel:        ~ # default: broadway.simple_interface_serializer
+        metadata:         ~ # default: broadway.simple_interface_serializer
+    command_handling:
+        logger:           false # If you want to log every command handled, provide the logger's service id here (e.g. "logger")
+    saga:
+        enabled:          ~ # default: false 
+        state_repository: ~ # a service definition id implementing Broadway\Saga\State\RepositoryInterface, by default the broadway.saga.state.in_memory_repository will be used
 ```

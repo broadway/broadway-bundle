@@ -29,53 +29,25 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_has_in_memory_as_default_event_store()
+    public function it_does_not_register_the_event_store_service_when_not_configured()
     {
         $this->load([]);
 
-        $this->assertTrue(
-            $this->container->hasDefinition('broadway.event_store.in_memory')
-        );
-        $this->assertContainerBuilderHasAlias(
-            'broadway.event_store',
-            'broadway.event_store.in_memory'
-        );
+        $this->assertFalse($this->container->hasParameter('broadway.event_store.service_id'));
     }
 
     /**
      * @test
      */
-    public function it_sets_dbal_parameters()
+    public function it_registers_the_event_store_service_when_configured()
     {
         $this->load([
-            'event_store' => [
-                'dbal' => [
-                    'enabled'    => true,
-                    'connection' => 'my_connection',
-                    'table'      => 'my_events_table',
-                    'use_binary' => true,
-                ],
-            ],
+            'event_store' => 'my_event_store',
         ]);
 
-        $this->assertContainerBuilderHasParameter('broadway.event_store.dbal.connection', 'my_connection');
-        $this->assertContainerBuilderHasParameter('broadway.event_store.dbal.table', 'my_events_table');
-        $this->assertContainerBuilderHasParameter('broadway.event_store.dbal.use_binary', true);
-    }
-
-    /**
-     * @test
-     */
-    public function disabling_dbal_event_store_does_not_load_its_definitions()
-    {
-        $this->load([
-            'event_store' => [
-                'dbal' => [
-                    'enabled' => false,
-                ],
-            ],
-        ]);
-
-        $this->assertContainerBuilderNotHasService('broadway.event_store.dbal');
+        $this->assertContainerBuilderHasParameter(
+            'broadway.event_store.service_id',
+            'my_event_store'
+        );
     }
 }

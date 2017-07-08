@@ -27,23 +27,17 @@ class ReadModelConfigurationTest extends TestCase
         return new Configuration();
     }
 
+
     /**
      * @test
      */
-    public function it_configures_in_memory_as_default_read_model_repository()
+    public function it_allows_the_read_model_repository_factory_to_not_be_configured()
     {
         $this->assertProcessedConfigurationEquals(
-            [],
             [
-                'read_model' => [
-                    'repository'    => 'in_memory',
-                    'elasticsearch' => [
-                        'hosts' => [
-                            'localhost:9200',
-                        ],
-                    ],
-                ],
+                []
             ],
+            [],
             'read_model'
         );
     }
@@ -51,17 +45,18 @@ class ReadModelConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function only_in_memory_and_elasticsearch_are_valid_read_model_repositories()
+    public function it_allows_the_read_model_repository_factory_to_be_configured()
     {
-        $this->assertConfigurationIsInvalid(
+        $this->assertProcessedConfigurationEquals(
             [
-                'broadway' => [
-                    'read_model' => [
-                        'repository' => 'false_name',
-                    ],
+                [
+                    'read_model' => 'my_read_model_repository_factory',
                 ],
             ],
-            'The value "false_name" is not allowed for path "broadway.read_model.repository". Permissible values: "in_memory", "elasticsearch"'
+            [
+                'read_model' => 'my_read_model_repository_factory',
+            ],
+            'read_model'
         );
     }
 }
