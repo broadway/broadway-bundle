@@ -47,7 +47,7 @@ You will need to configure an event store in your application's service definiti
 
 ```xml
 <!-- services.xml -->
-<service id="my_dbal_event_store" class="Broadway\EventStore\DBALEventStore">
+<service id="my_dbal_event_store" class="Broadway\EventStore\Dbal\DBALEventStore">
     <argument type="service" id="doctrine.dbal.default_connection" />
     <argument type="service" id="broadway.serializer.payload" />
     <argument type="service" id="broadway.serializer.metadata" />
