@@ -43,26 +43,14 @@ This can be installed using composer:
 $ composer require broadway/event-store-dbal
 ```
 
-You will need to configure an event store in your application's service definition:
-
-```xml
-<!-- services.xml -->
-<service id="my_dbal_event_store" class="Broadway\EventStore\Dbal\DBALEventStore">
-    <argument type="service" id="doctrine.dbal.default_connection" />
-    <argument type="service" id="broadway.serializer.payload" />
-    <argument type="service" id="broadway.serializer.metadata" />
-    <argument>events</argument>
-    <argument>false</argument>
-    <argument type="service" id="broadway.uuid.converter" />
-</service>
-```
-
-And tell the Broadway bundle to use it:
+You will need to enabel an event store in your application's configuration:
 
 ```yaml
 # config.yml
 broadway:
-  event_store: "my_dbal_event_store"
+  event_store:
+    dbal:
+      enabled: true
 ```
 
 To generate the mysql schema for the event store use the following command
