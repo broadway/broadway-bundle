@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="broadway.event_store.mongodb_client" class="MongoDB\Client">
+            <argument>%broadway.event_store.mongodb.server%</argument>
+        </service>
+
+        <service id="broadway.event_store.mongodb_collection" class="MongoDB\Collection">
+            <factory service="broadway.event_store.mongodb_client" method="selectCollection" />
+            <argument>%broadway.event_store.mongodb.database%</argument>
+            <argument>%broadway.event_store.mongodb.collection%</argument>
+        </service>
+
+        <service id="broadway.event_store.mongodb" class="Broadway\EventStore\MongoDB\MongoDBEventStore">
+            <argument type="service" id="broadway.event_store.mongodb_collection" />
+            <argument type="service" id="broadway.serializer.payload" />
+            <argument type="service" id="broadway.serializer.metadata" />
+        </service>
+    </services>
+</container>

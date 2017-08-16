@@ -122,10 +122,12 @@ class BroadwayExtension extends Extension
 
     private function loadEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
-        $loader->load('event_store.xml');
+        $loader->load('event_store/in_memory.xml');
 
         if ($config['dbal']['enabled']) {
             $this->loadDBALEventStore($config, $container, $loader);
+        } elseif ($config['mongodb']['enabled']) {
+            $this->loadMongoDBEventStore($config, $container, $loader);
         } else {
             $container->setAlias(
                 'broadway.event_store',
@@ -136,7 +138,8 @@ class BroadwayExtension extends Extension
 
     private function loadDBALEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
-        $loader->load('event_store_dbal.xml');
+        $loader->load('event_store/dbal.xml');
+
         $container->setAlias(
             'broadway.event_store',
             'broadway.event_store.dbal'
@@ -155,6 +158,30 @@ class BroadwayExtension extends Extension
         $container->setParameter(
             'broadway.event_store.dbal.use_binary',
             $config['dbal']['use_binary']
+        );
+    }
+    private function loadMongoDBEventStore(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('event_store/mongodb.xml');
+
+        $container->setAlias(
+            'broadway.event_store',
+            'broadway.event_store.mongodb'
+        );
+
+        $container->setParameter(
+            'broadway.event_store.mongodb.server',
+            $config['mongodb']['server']
+        );
+
+        $container->setParameter(
+            'broadway.event_store.mongodb.database',
+            $config['mongodb']['database']
+        );
+
+        $container->setParameter(
+            'broadway.event_store.mongodb.collection',
+            $config['mongodb']['collection']
         );
     }
 
