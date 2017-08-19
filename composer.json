@@ -48,7 +48,8 @@
     "symfony/proxy-manager-bridge": "~2.4",
     "phpunit/phpunit": "^4.8",
     "matthiasnoback/symfony-config-test": "^2.0",
-    "matthiasnoback/symfony-dependency-injection-test": "^1.1"
+    "matthiasnoback/symfony-dependency-injection-test": "^1.1",
+    "broadway/broadway-saga": "^0.2"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",

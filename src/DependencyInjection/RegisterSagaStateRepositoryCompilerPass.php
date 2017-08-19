@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStore;
+use Broadway\Saga\State\RepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
@@ -30,7 +30,7 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
 
         $serviceId = $container->getParameter($serviceParameter);
 
-        $this->assertDefinitionImplementsInterface($container, $serviceId, EventStore::class);
+        $this->assertDefinitionImplementsInterface($container, $serviceId, RepositoryInterface::class);
 
         $container->setAlias(
             'broadway.saga.state.repository',
