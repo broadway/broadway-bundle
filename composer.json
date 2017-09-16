@@ -1,5 +1,6 @@
 {
   "name": "broadway/broadway-bundle",
+  "type": "symfony-bundle",
   "description": "Symfony bundle for broadway/broadway.",
   "keywords": [
     "cqrs",
