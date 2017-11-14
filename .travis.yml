@@ -13,7 +13,6 @@ env:
 
 matrix:
     include:
-        - php: 5.5
         - php: 5.6
           env: COMPOSER_LOWEST=""
         - php: 5.6
