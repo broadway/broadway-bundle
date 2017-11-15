@@ -26,6 +26,15 @@ class SagaExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
+    /**
+     * @test
+     */
+    public function it_does_not_register_the_saga_state_manager_service_when_not_configured()
+    {
+        $this->load([]);
+
+        $this->assertFalse($this->container->hasDefinition('broadway.saga.state.state_manager'));
+    }
 
     /**
      * @test
