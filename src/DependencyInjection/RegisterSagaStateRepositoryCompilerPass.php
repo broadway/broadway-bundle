@@ -18,6 +18,10 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
 {
     public function process(ContainerBuilder $container)
     {
+        if (! $container->hasDefinition('broadway.saga.state.in_memory_repository')) {
+            return;
+        }
+
         $serviceParameter = 'broadway.saga.state.repository.service_id';
         if (! $container->hasParameter($serviceParameter)) {
             $container->setAlias(

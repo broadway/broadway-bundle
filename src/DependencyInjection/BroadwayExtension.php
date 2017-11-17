@@ -38,7 +38,7 @@ class BroadwayExtension extends ConfigurableExtension
         $this->loadCommandBus($mergedConfig['command_handling'], $container, $loader);
         $this->loadSerializers($mergedConfig['serializer'], $container, $loader);
 
-        if (isset($mergedConfig['saga'])) {
+        if (isset($mergedConfig['saga']) && isset($mergedConfig['saga']['enabled']) && $mergedConfig['saga']['enabled']) {
             $loader->load('saga.xml');
 
             if (isset($mergedConfig['saga']['state_repository'])) {
