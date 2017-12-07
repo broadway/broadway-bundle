@@ -43,7 +43,6 @@
     }
   ],
   "require-dev": {
-    "instaclick/base-test-bundle": "~0.5",
     "doctrine/doctrine-bundle": "^1.0",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "~2.4",
