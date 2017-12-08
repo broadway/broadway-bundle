@@ -43,10 +43,9 @@
     }
   ],
   "require-dev": {
-    "doctrine/doctrine-bundle": "^1.0",
     "monolog/monolog": "~1.8",
-    "symfony/proxy-manager-bridge": "~2.4",
-    "phpunit/phpunit": "^4.8",
+    "symfony/proxy-manager-bridge": "^2.3||^3.0||^4.0",
+    "phpunit/phpunit": "^4.8||^5.0",
     "matthiasnoback/symfony-config-test": "^2.0",
     "matthiasnoback/symfony-dependency-injection-test": "^1.1",
     "broadway/broadway-saga": "^0.2"
