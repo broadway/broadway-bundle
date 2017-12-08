@@ -34,7 +34,6 @@ before_install:
     - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
 
 install:
-    - travis_retry composer self-update
     - composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies
     - composer info
 
