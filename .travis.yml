@@ -39,7 +39,7 @@ install:
     - composer info -i
 
 script:
-  - phpunit --exclude-group=none
+  - vendor/bin/phpunit --exclude-group=none
 
 branches:
   only:
