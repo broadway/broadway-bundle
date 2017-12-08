@@ -36,7 +36,7 @@ install:
     - travis_retry composer self-update
     - travis_retry composer install
     - travis_retry php -dmemory_limit=3G `which composer` update symfony/framework-bundle $COMPOSER_LOWEST
-    - composer info -i
+    - composer info
 
 script:
   - vendor/bin/phpunit --exclude-group=none
