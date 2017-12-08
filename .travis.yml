@@ -18,7 +18,7 @@ matrix:
           env: COMPOSER_LOWEST=""
         - php: 5.6
           env: COMPOSER_LOWEST="--prefer-lowest"
-        - php: 7
+        - php: 7.0
     fast_finish: true
 
 addons:
