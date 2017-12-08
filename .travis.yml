@@ -35,7 +35,6 @@ before_install:
 
 install:
     - travis_retry composer self-update
-    - travis_retry composer install
     - composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies
     - composer info
 
