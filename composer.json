@@ -48,7 +48,7 @@
     "phpunit/phpunit": "^4.8||^5.0",
     "matthiasnoback/symfony-config-test": "^2.0",
     "matthiasnoback/symfony-dependency-injection-test": "^1.1",
-    "broadway/broadway-saga": "^0.2"
+    "broadway/broadway-saga": "^0.3"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
