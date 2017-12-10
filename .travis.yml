@@ -34,7 +34,8 @@ before_install:
     - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
 
 install:
-    - composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies
+    - composer install
+    - if [ "COMPOSER_LOWEST" != "" ]; then composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies; fi;
     - composer info
 
 script:
