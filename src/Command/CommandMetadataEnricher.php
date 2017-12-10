@@ -25,7 +25,7 @@ class CommandMetadataEnricher implements MetadataEnricher
     /**
      * {@inheritDoc}
      */
-    public function enrich(Metadata $metadata)
+    public function enrich(Metadata $metadata): Metadata
     {
         if (null === $this->event) {
             return $metadata;

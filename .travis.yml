@@ -13,10 +13,7 @@ env:
 
 matrix:
     include:
-        - php: 5.5
-        - php: 5.6
-          env: COMPOSER_LOWEST=""
-        - php: 5.6
+        - php: 7.0
           env: COMPOSER_LOWEST="--prefer-lowest"
         - php: 7.0
         - php: 7.1
@@ -32,10 +29,13 @@ addons:
 before_install:
     # Disable XDebug to speed up test execution. (Ignore failures if platform does not had the extension installed)
     - phpenv config-rm xdebug.ini || return 0
+    # Enable MongoDB extension
+    - echo "extension=mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini || return 0
     - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
 
 install:
-    - composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies
+    - composer install
+    - if [ "COMPOSER_LOWEST" != "" ]; then composer update symfony/framework-bundle $COMPOSER_LOWEST --with-dependencies; fi;
     - composer info
 
 script:

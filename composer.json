@@ -10,8 +10,8 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=5.5.9",
-    "broadway/broadway": "^1.0",
+    "php": ">=7.0",
+    "broadway/broadway": "^2.0",
     "doctrine/doctrine-bundle": "^1.0",
     "symfony/console": "^2.3||^3.0||^4.0",
     "symfony/http-kernel": "^2.3||^3.0||^4.0"
@@ -48,7 +48,7 @@
     "phpunit/phpunit": "^4.8||^5.0",
     "matthiasnoback/symfony-config-test": "^2.0",
     "matthiasnoback/symfony-dependency-injection-test": "^1.1",
-    "broadway/broadway-saga": "^0.2"
+    "broadway/broadway-saga": "^0.3"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
