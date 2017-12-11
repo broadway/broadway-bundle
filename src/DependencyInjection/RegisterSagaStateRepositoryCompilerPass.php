@@ -12,6 +12,7 @@
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
 use Broadway\Saga\State\RepositoryInterface;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
@@ -26,7 +27,7 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
         if (! $container->hasParameter($serviceParameter)) {
             $container->setAlias(
                 'broadway.saga.state.repository',
-                'broadway.saga.state.in_memory_repository'
+                new Alias('broadway.saga.state.in_memory_repository', true)
             );
 
             return;
@@ -38,7 +39,7 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
 
         $container->setAlias(
             'broadway.saga.state.repository',
-            $serviceId
+            new Alias($serviceId, true)
         );
     }
 }
