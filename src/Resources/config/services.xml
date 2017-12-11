@@ -5,9 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="broadway.command_handling.simple_command_bus" class="Broadway\CommandHandling\SimpleCommandBus"/>
+        <service id="broadway.command_handling.simple_command_bus" class="Broadway\CommandHandling\SimpleCommandBus" />
 
-        <service id="broadway.command_handling.event_dispatching_command_bus" class="Broadway\CommandHandling\EventDispatchingCommandBus" public="false">
+        <service id="broadway.command_handling.event_dispatching_command_bus" class="Broadway\CommandHandling\EventDispatchingCommandBus">
             <argument type="service" id="broadway.command_handling.simple_command_bus" />
             <argument type="service" id="broadway.event_dispatcher" />
         </service>

@@ -30,7 +30,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_enables_the_simple_command_bus()
+    public function it_creates_a_public_alias_to_the_simple_command_bus()
     {
         $this->load([]);
 
@@ -38,12 +38,14 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
             'broadway.command_handling.command_bus',
             'broadway.command_handling.simple_command_bus'
         );
+
+        $this->assertTrue($this->container->getAlias('broadway.command_handling.command_bus')->isPublic());
     }
 
     /**
      * @test
      */
-    public function it_enables_the_logging_command_bus()
+    public function it_creates_a_public_alias_for_the_logging_command_bus()
     {
         $this->load([
             'command_handling' => [
@@ -55,12 +57,14 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
             'broadway.command_handling.command_bus',
             'broadway.command_handling.event_dispatching_command_bus'
         );
+
+        $this->assertTrue($this->container->getAlias('broadway.command_handling.command_bus')->isPublic());
     }
 
     /**
      * @test
      */
-    public function it_creates_an_auditing_logger_alias()
+    public function it_creates_a_public_alias_for_the_auditing_logger()
     {
         $this->load([
             'command_handling' => [
@@ -72,6 +76,8 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
             'broadway.auditing.logger',
             'my_service'
         );
+
+        $this->assertTrue($this->container->getAlias('broadway.auditing.logger')->isPublic());
     }
 
     /**
