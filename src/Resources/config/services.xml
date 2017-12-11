@@ -16,7 +16,7 @@
 
         <service id="broadway.uuid.converter" class="Broadway\UuidGenerator\Converter\BinaryUuidConverter" />
 
-        <service id="broadway.uuid.generator" class="Broadway\UuidGenerator\Rfc4122\Version4Generator" />
+        <service id="broadway.uuid.generator" class="Broadway\UuidGenerator\Rfc4122\Version4Generator" public="true" />
 
         <service id="broadway.metadata_enriching_event_stream_decorator" class="Broadway\EventSourcing\MetadataEnrichment\MetadataEnrichingEventStreamDecorator" />
 
