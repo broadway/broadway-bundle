@@ -12,6 +12,7 @@
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
 use Broadway\ReadModel\RepositoryFactory;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
@@ -20,7 +21,10 @@ class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
     {
         $serviceParameter = 'broadway.read_model_repository_factory.service_id';
         if (! $container->hasParameter($serviceParameter)) {
-            $container->setAlias('broadway.read_model.repository_factory', 'broadway.read_model.in_memory.repository_factory');
+            $container->setAlias(
+                'broadway.read_model.repository_factory',
+                new Alias('broadway.read_model.in_memory.repository_factory', true)
+            );
 
             return;
         }
@@ -29,6 +33,6 @@ class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
 
         $this->assertDefinitionImplementsInterface($container, $serviceId, RepositoryFactory::class);
 
-        $container->setAlias('broadway.read_model.repository_factory', $serviceId);
+        $container->setAlias('broadway.read_model.repository_factory', new Alias($serviceId, true));
     }
 }

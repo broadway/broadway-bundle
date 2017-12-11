@@ -11,7 +11,6 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use Broadway\EventStore\EventStore;
 use Broadway\ReadModel\RepositoryFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -38,6 +37,8 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
             'broadway.read_model.repository_factory',
             'broadway.read_model.in_memory.repository_factory'
         );
+
+        $this->assertTrue($this->container->getAlias('broadway.read_model.repository_factory')->isPublic());
     }
 
     /**
@@ -58,6 +59,8 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
             'broadway.read_model.repository_factory',
             'my_read_model_repository_factory'
         );
+
+        $this->assertTrue($this->container->getAlias('broadway.read_model.repository_factory')->isPublic());
     }
 
     /**
