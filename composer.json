@@ -42,6 +42,7 @@
     }
   ],
   "require-dev": {
+    "symfony/framework-bundle": "^2.3||^3.0||^4.0",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "^2.3||^3.0||^4.0",
     "phpunit/phpunit": "^4.8||^5.0",
