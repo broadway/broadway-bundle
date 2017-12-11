@@ -39,7 +39,7 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_sets_the_event_store_alias()
+    public function it_sets_the_public_event_store_alias()
     {
         $this->container->setParameter('broadway.event_store.service_id', 'my_event_store');
 
@@ -48,6 +48,7 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasAlias('broadway.event_store', 'my_event_store');
+        $this->assertTrue($this->container->getAlias('broadway.event_store')->isPublic());
     }
 
     /**
