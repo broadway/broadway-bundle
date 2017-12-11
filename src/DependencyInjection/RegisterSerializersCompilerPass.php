@@ -11,6 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -35,7 +36,10 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
 
             $container->setAlias(
                 sprintf('broadway.serializer.%s', $serializer),
-                $container->getParameter(sprintf('broadway.serializer.%s.service_id', $serializer))
+                new Alias(
+                    $container->getParameter(sprintf('broadway.serializer.%s.service_id', $serializer)),
+                    true
+                )
             );
         }
     }

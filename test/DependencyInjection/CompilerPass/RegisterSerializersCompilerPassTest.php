@@ -29,7 +29,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_sets_the_serializer_aliases()
+    public function it_sets_the_public_serializer_aliases()
     {
         $this->setDefinition('my_serializer', new Definition());
 
@@ -42,6 +42,10 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasAlias('broadway.serializer.payload', 'my_serializer');
         $this->assertContainerBuilderHasAlias('broadway.serializer.readmodel', 'my_serializer');
         $this->assertContainerBuilderHasAlias('broadway.serializer.metadata', 'my_serializer');
+
+        $this->assertTrue($this->container->getAlias('broadway.serializer.payload')->isPublic());
+        $this->assertTrue($this->container->getAlias('broadway.serializer.readmodel')->isPublic());
+        $this->assertTrue($this->container->getAlias('broadway.serializer.metadata')->isPublic());
     }
 
     /**

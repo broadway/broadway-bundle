@@ -13,6 +13,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
@@ -55,17 +56,17 @@ class BroadwayExtension extends ConfigurableExtension
         if ($config['dispatch_events']) {
             $container->setAlias(
                 'broadway.command_handling.command_bus',
-                'broadway.command_handling.event_dispatching_command_bus'
+                new Alias('broadway.command_handling.event_dispatching_command_bus', true)
             );
 
             if ($logger = $config['logger']) {
                 $loader->load('auditing.xml');
-                $container->setAlias('broadway.auditing.logger', $logger);
+                $container->setAlias('broadway.auditing.logger', new Alias($logger, true));
             }
         } else {
             $container->setAlias(
                 'broadway.command_handling.command_bus',
-                'broadway.command_handling.simple_command_bus'
+                new Alias('broadway.command_handling.simple_command_bus', true)
             );
         }
     }
