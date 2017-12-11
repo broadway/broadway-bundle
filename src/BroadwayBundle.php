@@ -74,13 +74,4 @@ class BroadwayBundle extends Bundle
             new RegisterSerializersCompilerPass()
         );
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function registerCommands(Application $application)
-    {
-        $application->add(new SchemaEventStoreCreateCommand());
-        $application->add(new SchemaEventStoreDropCommand());
-    }
 }
