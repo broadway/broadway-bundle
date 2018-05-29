@@ -17,14 +17,16 @@ You can also create your own event store implementation by implementing the
 
 Next, create a service definition for it:
 
-```xml
-<service id="my_event_store" class="MyEventStore" />
+```yaml
+# services.yaml
+my_event_store:
+    class: MyEventStore
 ```
 
 And configure it in the bundle config:
 
 ```yaml
-# config.yml
+# config.yaml
 broadway:
   # a service definition id implementing Broadway\EventStore\EventStore,
   event_store: "my_event_store"

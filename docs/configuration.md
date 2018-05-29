@@ -2,12 +2,12 @@
 
 The Broadway bundle does not necessarily need to be configured because it uses sane default values.
 If you installed the bundle using [Symfony Flex](https://github.com/symfony/flex) you can find the default configuration
-in the `config/packages/broadway.yml` file in your application.
+in the `config/packages/broadway.yaml` file in your application.
 
 The full default configuration is as follows:
 
-```yml
-# config.yml
+```yaml
+# config/packages/broadway.yaml
 # from ./bin/console debug:config broadway
 broadway:
 

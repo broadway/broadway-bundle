@@ -6,8 +6,8 @@ user, an IP address, a user agent or some request token.
 
 The metadata enricher is automatically registered when adding the following tag to the service definition:
 
-```xml
-<tag name="broadway.metadata_enricher" />
+```yaml
+tags: [broadway.metadata_enricher]
 ```
 
 ## IP address example
@@ -47,9 +47,9 @@ class IpAddressMetadataEnricher implements MetadataEnricher
 ```
 
 ```yaml
-# services.yml
-my_ip_address_metadata_enricher
-    class: My\IpAddressMetadataEnricher
+# services.yaml
+my_ip_address_metadata_enricher:
+    class: IpAddressMetadataEnricher
     arguments:
       - "@request_stack"
     tags:

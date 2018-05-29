@@ -13,12 +13,13 @@ When using [Symfony Flex](https://github.com/symfony/flex) the required
 services are configured automatically.
 
 Register sagas using the `broadway.saga` service tag:
- 
-```xml
-<!-- services.xml -->
-<service class="ReservationSaga">
-    <argument type="service" id="broadway.command_handling.command_bus" />
-    <argument type="service" id="broadway.uuid.generator" />
-    <tag name="broadway.saga" type="reservation" />
-</service>
-```
+
+```yaml
+# services.yaml
+reservation_saga:
+    class: ReservationSaga
+    arguments:
+        - "@broadway.command_handling.command_bus"
+        - "@broadway.uuid.generator"
+    tags:
+        - { name: broadway.saga, type: reservation }

@@ -13,7 +13,7 @@ These can be very easily installed using [Symfony Flex](https://github.com/symfo
 Of course there are other implementations and you can also create your own and configure it:
 
 ```yaml
-# config.yml
+# config.yaml
 broadway:
   # a service definition id implementing Broadway\ReadModel\RepositoryFactory
   read_model: "my_read_model_repository_factory"
