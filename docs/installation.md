@@ -20,7 +20,7 @@ Symfony Flex will automatically register and configure the bundle.
 
 By default in-memory implementations of the event store and read models are used.
 You can install one of the persistent implementations as described in the
-[Event store](https://broadway.github.io/broadway-bundle/event_store.md) and [Read models](https://broadway.github.io/broadway-bundle/read_model.md) sections of the documentation.
+[Event store](https://broadway.github.io/broadway-bundle/docs/event_store.md) and [Read models](https://broadway.github.io/broadway-bundle/docs/read_model.md) sections of the documentation.
 
 ### Manually
 
