@@ -21,7 +21,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container):void
     {
         $this->setDefinition('broadway.saga.state.in_memory_repository', new Definition(RepositoryInterface::class));
 

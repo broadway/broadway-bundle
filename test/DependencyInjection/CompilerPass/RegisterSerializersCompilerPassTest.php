@@ -21,7 +21,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container) :void
     {
         $container->addCompilerPass(new RegisterSerializersCompilerPass());
     }

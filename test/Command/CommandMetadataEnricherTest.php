@@ -13,7 +13,6 @@ namespace Broadway\Bundle\BroadwayBundle\Command;
 
 use Broadway\Bundle\BroadwayBundle\TestCase;
 use Broadway\Domain\Metadata;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,7 +25,7 @@ class CommandMetadataEnricherTest extends TestCase
     private $enricher;
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->command   = new Command();
         $this->arguments = 'broadway:test:command argument --option=true --env=dev';
@@ -66,7 +65,7 @@ class CommandMetadataEnricherTest extends TestCase
     }
 }
 
-class Command extends ContainerAwareCommand
+class Command extends \Symfony\Component\Console\Command\Command
 {
     protected function configure()
     {

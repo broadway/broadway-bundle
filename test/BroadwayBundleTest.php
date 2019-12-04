@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle;
 
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @group functional

@@ -12,23 +12,48 @@ php:
   - 7.2
   - 7.3
 
-env:
-  - SYMFONY_VERSION=2.8.*
-  - SYMFONY_VERSION=3.4.*
-  - SYMFONY_VERSION=4.0.*
-  - SYMFONY_VERSION=4.1.*
-  - SYMFONY_VERSION=4.2.*
-
 matrix:
   include:
     - php: 7.1
-      env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
+      env: SYMFONY_VERSION=2.8.*  DEPENDENCIES="phpunit/phpunit:^7.0"
     - php: 7.1
-      env: SYMFONY_VERSION=''
+      env: SYMFONY_VERSION=3.4.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.1
+      env: SYMFONY_VERSION=4.0.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.1
+      env: SYMFONY_VERSION=4.1.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.1
+      env: SYMFONY_VERSION=4.2.*  DEPENDENCIES="phpunit/phpunit:^7.0"
     - php: 7.2
-      env: SYMFONY_VERSION=''
+      env: SYMFONY_VERSION=2.8.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION=3.4.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION=4.0.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION=4.1.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION=4.2.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION=5.0.*  DEPENDENCIES="phpunit/phpunit:^8.0"
     - php: 7.3
-      env: SYMFONY_VERSION=''
+      env: SYMFONY_VERSION=2.8.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION=3.4.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION=4.0.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION=4.1.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION=4.2.*  DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION=5.0.*  DEPENDENCIES="phpunit/phpunit:^8.0"
+    - php: 7.1
+      env: SYMFONY_VERSION='' DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.2
+      env: SYMFONY_VERSION='' DEPENDENCIES="phpunit/phpunit:^7.0"
+    - php: 7.3
+      env: SYMFONY_VERSION='' DEPENDENCIES="phpunit/phpunit:^8.0"
   fast_finish: true
 
 addons:
@@ -43,6 +68,7 @@ before_install:
     # Enable MongoDB extension
     - echo "extension=mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini || return 0
     - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini || return 0
+    - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
 
 install:
     - if [ "$SYMFONY_VERSION" != "" ]; then composer --no-update require symfony/framework-bundle:${SYMFONY_VERSION}; fi;
@@ -50,8 +76,8 @@ install:
     - composer info
 
 script:
-  - vendor/bin/phpunit --exclude-group=none
-  - git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
+    - vendor/bin/phpunit --exclude-group=none
+    - git log $(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
 
 branches:
   only:
