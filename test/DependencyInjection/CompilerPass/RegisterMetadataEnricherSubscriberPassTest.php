@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +22,7 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterMetadataEnricherSubscriberPass(

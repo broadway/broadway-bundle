@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventStoreCompilerPass;
 use Broadway\EventStore\EventStore;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,7 +22,7 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterEventStoreCompilerPass());
     }
@@ -53,11 +54,11 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service id "my_event_store" could not be found in container
      */
     public function it_throws_when_configured_event_store_has_no_definition()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service id "my_event_store" could not be found in container');
         $this->container->setParameter('broadway.event_store.service_id', 'my_event_store');
 
         $this->compile();
@@ -65,11 +66,11 @@ class RegisterEventStoreCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\EventStore\EventStore".
      */
     public function it_throws_when_configured_event_store_does_not_implement_event_store_interface()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service "stdClass" must implement interface "Broadway\EventStore\EventStore".');
         $this->container->setParameter('broadway.event_store.service_id', 'my_event_store');
 
         $this->setDefinition('my_event_store', new Definition(\stdClass::class));

@@ -11,9 +11,9 @@
 
 namespace Broadway\Bundle\BroadwayBundle\Command;
 
-use Broadway\Bundle\BroadwayBundle\TestCase;
 use Broadway\Domain\Metadata;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,21 +26,17 @@ class CommandMetadataEnricherTest extends TestCase
     private $enricher;
     private $metadata;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->command   = new Command();
+        $this->command   = new MyCommand();
         $this->arguments = 'broadway:test:command argument --option=true --env=dev';
 
-        $this->input = $this->getMockBuilder('Symfony\Component\Console\Input\ArgvInput')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->input = $this->createMock('Symfony\Component\Console\Input\ArgvInput');
         $this->input->expects($this->any())
             ->method('__toString')
             ->will($this->returnValue($this->arguments));
 
-        $output = $this->getMockBuilder('Symfony\Component\Console\Output\OutputInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $output = $this->createMock('Symfony\Component\Console\Output\OutputInterface');
 
         $this->event    = new ConsoleCommandEvent($this->command, $this->input, $output);
         $this->enricher = new CommandMetadataEnricher();
@@ -56,7 +52,7 @@ class CommandMetadataEnricherTest extends TestCase
 
         $expected = $this->metadata->merge(new Metadata([
             'console' => [
-                'command'   => 'Broadway\Bundle\BroadwayBundle\Command\Command',
+                'command'   => 'Broadway\Bundle\BroadwayBundle\Command\MyCommand',
                 'arguments' => $this->arguments
             ]
         ]));
@@ -66,7 +62,7 @@ class CommandMetadataEnricherTest extends TestCase
     }
 }
 
-class Command extends ContainerAwareCommand
+class MyCommand extends Command
 {
     protected function configure()
     {
