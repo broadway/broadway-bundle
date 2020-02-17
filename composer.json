@@ -12,8 +12,8 @@
   "require": {
     "php": ">=7.2",
     "broadway/broadway": "^2.2.1",
-    "symfony/console": "^2.3||^3.0||^4.0",
-    "symfony/http-kernel": "^2.3||^3.0||^4.0"
+    "symfony/console": "^3.4||^4.4|^5.0",
+    "symfony/http-kernel": "^3.4||^4.4|^5.0"
   },
   "authors": [
     {
@@ -42,9 +42,9 @@
     }
   ],
   "require-dev": {
-    "symfony/framework-bundle": "^2.3||^3.0||^4.0",
+    "symfony/framework-bundle": "^3.4||^4.4|^5.0",
     "monolog/monolog": "~1.8",
-    "symfony/proxy-manager-bridge": "^2.3||^3.0||^4.0",
+    "symfony/proxy-manager-bridge": "^3.4||^4.4|^5.0",
     "phpunit/phpunit": "^4.8||^5.0",
     "matthiasnoback/symfony-config-test": "^2.0",
     "matthiasnoback/symfony-dependency-injection-test": "^1.1",
