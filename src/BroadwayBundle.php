@@ -34,44 +34,44 @@ class BroadwayBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new RegisterEventStoreCompilerPass());
-        $container->addCompilerPass(new RegisterReadModelRepositoryFactoryCompilerPass());
-        $container->addCompilerPass(new RegisterSagaStateRepositoryCompilerPass());
+        $container->addCompilerPass(new RegisterEventStoreCompilerPass(), 0);
+        $container->addCompilerPass(new RegisterReadModelRepositoryFactoryCompilerPass(), 0);
+        $container->addCompilerPass(new RegisterSagaStateRepositoryCompilerPass(), 0);
 
         $container->addCompilerPass(
             new RegisterSagaCompilerPass(
                 'broadway.saga.multiple_saga_manager',
                 'broadway.saga'
-            )
+            ), 0
         );
         $container->addCompilerPass(
             new RegisterBusSubscribersCompilerPass(
                 'broadway.command_handling.command_bus',
                 'broadway.command_handler',
                 \Broadway\CommandHandling\CommandHandler::class
-            )
+            ), 0
         );
         $container->addCompilerPass(
             new RegisterBusSubscribersCompilerPass(
                 'broadway.event_handling.event_bus',
                 'broadway.domain.event_listener',
                 \Broadway\EventHandling\EventListener::class
-            )
+            ), 0
         );
         $container->addCompilerPass(
             new RegisterEventListenerCompilerPass(
                 'broadway.event_dispatcher',
                 'broadway.event_listener'
-            )
+            ), 0
         );
         $container->addCompilerPass(
             new RegisterMetadataEnricherSubscriberPass(
                 'broadway.metadata_enriching_event_stream_decorator',
                 'broadway.metadata_enricher'
-            )
+            ), 0
         );
         $container->addCompilerPass(
-            new RegisterSerializersCompilerPass()
+            new RegisterSerializersCompilerPass(), 0
         );
     }
 }
