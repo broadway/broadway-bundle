@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +22,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterSagaCompilerPass(
@@ -69,11 +69,11 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Tag "broadway.saga" of service "my_saga_1" should have a "type" attribute, indicating the type of saga it represents
      */
     public function it_throws_when_registering_sagas_without_type()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Tag "broadway.saga" of service "my_saga_1" should have a "type" attribute, indicating the type of saga it represents');
         $sagaManager = new Definition();
         $this->setDefinition('broadway.saga.multiple_saga_manager', $sagaManager);
 

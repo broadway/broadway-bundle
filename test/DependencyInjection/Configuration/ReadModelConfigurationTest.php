@@ -12,8 +12,8 @@
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
-use Broadway\Bundle\BroadwayBundle\TestCase;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
 class ReadModelConfigurationTest extends TestCase
 {

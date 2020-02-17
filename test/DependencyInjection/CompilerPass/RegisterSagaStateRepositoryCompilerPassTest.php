@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaStateRepositoryCompilerPass;
 use Broadway\Saga\State\RepositoryInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,7 +22,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $this->setDefinition('broadway.saga.state.in_memory_repository', new Definition(RepositoryInterface::class));
 
@@ -67,11 +68,11 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service id "my_saga_state_repository" could not be found in container
      */
     public function it_throws_when_configured_saga_state_repository_has_no_definition()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service id "my_saga_state_repository" could not be found in container');
         $this->container->setParameter(
             'broadway.saga.state.repository.service_id',
             'my_saga_state_repository'
@@ -82,11 +83,11 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\Saga\State\RepositoryInterface".
      */
     public function it_throws_when_configured_saga_state_repository_does_not_implement_event_store_interface()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service "stdClass" must implement interface "Broadway\Saga\State\RepositoryInterface".');
         $this->container->setParameter(
             'broadway.saga.state.repository.service_id',
             'my_saga_state_repository'

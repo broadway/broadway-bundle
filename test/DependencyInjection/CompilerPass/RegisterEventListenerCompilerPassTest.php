@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
@@ -22,7 +22,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterEventListenerCompilerPass(
@@ -85,11 +85,11 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)
      */
     public function it_throws_when_event_listeners_has_no_event_or_method()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)');
         $this->setDefinition( 'broadway.event_dispatcher', new Definition());
 
         $eventListener = new Definition();

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration\CompilerPass;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
 use Broadway\EventHandling\EventListener;
@@ -23,7 +23,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(
             new RegisterBusSubscribersCompilerPass(

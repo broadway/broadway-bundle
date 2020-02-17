@@ -45,9 +45,9 @@
     "symfony/framework-bundle": "^3.4||^4.4|^5.0",
     "monolog/monolog": "~1.8",
     "symfony/proxy-manager-bridge": "^3.4||^4.4|^5.0",
-    "phpunit/phpunit": "^4.8||^5.0",
-    "matthiasnoback/symfony-config-test": "^2.0",
-    "matthiasnoback/symfony-dependency-injection-test": "^1.1",
+    "phpunit/phpunit": "^8.0",
+    "matthiasnoback/symfony-config-test": "^4.0",
+    "matthiasnoback/symfony-dependency-injection-test": "^4.0",
     "broadway/broadway-saga": "^0.7"
   },
   "suggest": {

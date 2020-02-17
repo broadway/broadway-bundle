@@ -9,8 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
+namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
+use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterReadModelRepositoryFactoryCompilerPass;
 use Broadway\ReadModel\RepositoryFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,7 +22,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * {@inheritdoc}
      */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterReadModelRepositoryFactoryCompilerPass());
     }
@@ -65,11 +66,11 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service id "my_read_model_repository_factory" could not be found in container
      */
     public function it_throws_when_configured_read_model_repository_factory_has_no_definition()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service id "my_read_model_repository_factory" could not be found in container');
         $this->container->setParameter(
             'broadway.read_model_repository_factory.service_id',
             'my_read_model_repository_factory'
@@ -80,11 +81,11 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Service "stdClass" must implement interface "Broadway\ReadModel\RepositoryFactory".
      */
     public function it_throws_when_configured_read_model_repository_factory_does_not_implement_event_store_interface()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Service "stdClass" must implement interface "Broadway\ReadModel\RepositoryFactory".');
         $this->container->setParameter(
             'broadway.read_model_repository_factory.service_id',
             'my_read_model_repository_factory'

@@ -11,7 +11,7 @@
 
 namespace Broadway\Bundle\BroadwayBundle;
 
-use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @group functional
@@ -20,6 +20,7 @@ class BroadwayBundleTest extends WebTestCase
 {
     /**
      * @test
+     * @doesNotPerformAssertion
      */
     public function it_does_not_throw_when_booting_kernel()
     {
