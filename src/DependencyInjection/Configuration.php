@@ -31,7 +31,7 @@ class Configuration implements ConfigurationInterface
         }
         else {
             // BC layer for symfony/config 4.1 and older
-            $rootNode = $treeBuilder->getRootNode('broadway');
+            $rootNode = $treeBuilder->root('broadway');
         }
 
         $rootNode
