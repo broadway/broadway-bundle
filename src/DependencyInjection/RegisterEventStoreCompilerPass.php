@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,7 +22,7 @@ class RegisterEventStoreCompilerPass extends CompilerPass
     public function process(ContainerBuilder $container)
     {
         $serviceParameter = 'broadway.event_store.service_id';
-        if (! $container->hasParameter($serviceParameter)) {
+        if (!$container->hasParameter($serviceParameter)) {
             $container->setAlias('broadway.event_store', 'broadway.event_store.in_memory');
 
             return;

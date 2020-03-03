@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,13 +22,12 @@ class ReadModelConfigurationTest extends TestCase
     use ConfigurationTestCaseTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getConfiguration()
     {
         return new Configuration();
     }
-
 
     /**
      * @test
@@ -35,7 +36,7 @@ class ReadModelConfigurationTest extends TestCase
     {
         $this->assertProcessedConfigurationEquals(
             [
-                []
+                [],
             ],
             [],
             'read_model'

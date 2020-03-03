@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -11,8 +13,6 @@
 
 namespace Broadway\Bundle\BroadwayBundle;
 
-use Broadway\Bundle\BroadwayBundle\Command\SchemaEventStoreCreateCommand;
-use Broadway\Bundle\BroadwayBundle\Command\SchemaEventStoreDropCommand;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventStoreCompilerPass;
@@ -21,14 +21,13 @@ use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterReadModelReposito
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaStateRepositoryCompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
-use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class BroadwayBundle extends Bundle
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function build(ContainerBuilder $container)
     {

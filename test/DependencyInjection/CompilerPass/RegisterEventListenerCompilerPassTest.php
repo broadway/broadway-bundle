@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -44,14 +46,14 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
 
         $eventListener1 = new Definition();
         $eventListener1->addTag('broadway.event_listener', [
-            'event'  => 'my_event',
+            'event' => 'my_event',
             'method' => 'handleMyEvent',
         ]);
         $this->setDefinition('event_listener_1', $eventListener1);
 
         $eventListener2 = new Definition();
         $eventListener2->addTag('broadway.event_listener', [
-            'event'  => 'my_event',
+            'event' => 'my_event',
             'method' => 'handleMyEvent',
         ]);
         $this->setDefinition('event_listener_2', $eventListener2);
@@ -66,7 +68,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
                 [
                     new Reference('event_listener_1'),
                     'handleMyEvent',
-                ]
+                ],
             ]
         );
 
@@ -78,7 +80,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
                 [
                     new Reference('event_listener_2'),
                     'handleMyEvent',
-                ]
+                ],
             ]
         );
     }
@@ -90,7 +92,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     {
         $this->expectException('RuntimeException');
         $this->expectExceptionMessage('Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)');
-        $this->setDefinition( 'broadway.event_dispatcher', new Definition());
+        $this->setDefinition('broadway.event_dispatcher', new Definition());
 
         $eventListener = new Definition();
         $eventListener->addTag('broadway.event_listener');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,16 +22,15 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('broadway');
 
-        if (\method_exists($treeBuilder, 'getRootNode')){
+        if (\method_exists($treeBuilder, 'getRootNode')) {
             $rootNode = $treeBuilder->getRootNode();
-        }
-        else {
+        } else {
             // BC layer for symfony/config 4.1 and older
             $rootNode = $treeBuilder->root('broadway');
         }

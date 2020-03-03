@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -21,11 +23,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 class BroadwayExtension extends ConfigurableExtension
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
         if (isset($mergedConfig['event_store'])) {
