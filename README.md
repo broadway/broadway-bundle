@@ -3,6 +3,8 @@ Broadway Bundle
 
 Symfony bundle to integrate Broadway into your Symfony application.
 
+[![Build Status](https://travis-ci.org/broadway/broadway-bundle.svg?branch=master)](https://travis-ci.org/broadway/broadway-bundle)
+
 ## Installation
 
 The easiest way to install and configure the BroadwayBundle with Symfony is by using
