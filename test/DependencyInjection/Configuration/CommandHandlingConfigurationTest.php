@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,7 +22,7 @@ class CommandHandlingConfigurationTest extends TestCase
     use ConfigurationTestCaseTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getConfiguration()
     {
@@ -37,8 +39,8 @@ class CommandHandlingConfigurationTest extends TestCase
             [
                 'command_handling' => [
                     'dispatch_events' => false,
-                    'logger'          => false,
-                ]
+                    'logger' => false,
+                ],
             ],
             'command_handling'
         );
@@ -53,7 +55,7 @@ class CommandHandlingConfigurationTest extends TestCase
             [
                 'broadway' => [
                     'command_handling' => [
-                        'logger'          => 'logger',
+                        'logger' => 'logger',
                         'dispatch_events' => false,
                     ],
                 ],
@@ -61,8 +63,8 @@ class CommandHandlingConfigurationTest extends TestCase
             [
                 'command_handling' => [
                     'dispatch_events' => true,
-                    'logger'          => 'logger',
-                ]
+                    'logger' => 'logger',
+                ],
             ],
             'command_handling'
         );

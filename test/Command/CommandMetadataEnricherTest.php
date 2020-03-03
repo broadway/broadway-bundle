@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -28,7 +30,7 @@ class CommandMetadataEnricherTest extends TestCase
 
     public function setUp(): void
     {
-        $this->command   = new MyCommand();
+        $this->command = new MyCommand();
         $this->arguments = 'broadway:test:command argument --option=true --env=dev';
 
         $this->input = $this->createMock('Symfony\Component\Console\Input\ArgvInput');
@@ -38,7 +40,7 @@ class CommandMetadataEnricherTest extends TestCase
 
         $output = $this->createMock('Symfony\Component\Console\Output\OutputInterface');
 
-        $this->event    = new ConsoleCommandEvent($this->command, $this->input, $output);
+        $this->event = new ConsoleCommandEvent($this->command, $this->input, $output);
         $this->enricher = new CommandMetadataEnricher();
         $this->metadata = new Metadata(['yolo' => 'bam']);
     }
@@ -52,9 +54,9 @@ class CommandMetadataEnricherTest extends TestCase
 
         $expected = $this->metadata->merge(new Metadata([
             'console' => [
-                'command'   => 'Broadway\Bundle\BroadwayBundle\Command\MyCommand',
-                'arguments' => $this->arguments
-            ]
+                'command' => 'Broadway\Bundle\BroadwayBundle\Command\MyCommand',
+                'arguments' => $this->arguments,
+            ],
         ]));
 
         $actual = $this->enricher->enrich($this->metadata);

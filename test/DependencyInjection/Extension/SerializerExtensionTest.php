@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -26,7 +28,6 @@ class SerializerExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-
     /**
      * @test
      */
@@ -34,9 +35,9 @@ class SerializerExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([
             'serializer' => [
-                'payload'   => 'my_payload_serializer',
+                'payload' => 'my_payload_serializer',
                 'readmodel' => 'my_read_model_serializer',
-                'metadata'  => 'my_metadata_serializer',
+                'metadata' => 'my_metadata_serializer',
             ],
         ]);
 

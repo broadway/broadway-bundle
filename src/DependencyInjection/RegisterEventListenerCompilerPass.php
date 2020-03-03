@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -32,11 +34,11 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
     public function __construct($eventDispatcherId, $serviceTag)
     {
         $this->eventDispatcherId = $eventDispatcherId;
-        $this->serviceTag        = $serviceTag;
+        $this->serviceTag = $serviceTag;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -53,17 +55,12 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
 
     private function processListenerDefinition(ContainerBuilder $container, Definition $dispatcher, $listenerId)
     {
-        $def  = $container->getDefinition($listenerId);
+        $def = $container->getDefinition($listenerId);
         $tags = $def->getTag($this->serviceTag);
 
         foreach ($tags as $tag) {
-            if (! isset($tag['event']) || ! isset($tag['method'])) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)',
-                        $this->serviceTag
-                    )
-                );
+            if (!isset($tag['event']) || !isset($tag['method'])) {
+                throw new RuntimeException(sprintf('Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)', $this->serviceTag));
             }
 
             $dispatcher->addMethodCall(
@@ -72,8 +69,8 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
                     $tag['event'],
                     [
                         new Reference($listenerId),
-                        $tag['method']
-                    ]
+                        $tag['method'],
+                    ],
                 ]
             );
         }

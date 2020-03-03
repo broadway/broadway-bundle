@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,7 +22,7 @@ class EventStoreConfigurationTest extends TestCase
     use ConfigurationTestCaseTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getConfiguration()
     {
@@ -34,7 +36,7 @@ class EventStoreConfigurationTest extends TestCase
     {
         $this->assertProcessedConfigurationEquals(
             [
-                []
+                [],
             ],
             [],
             'event_store'

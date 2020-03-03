@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -20,7 +22,7 @@ class SagaConfigurationTest extends TestCase
     use ConfigurationTestCaseTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getConfiguration()
     {
@@ -34,12 +36,12 @@ class SagaConfigurationTest extends TestCase
     {
         $this->assertProcessedConfigurationEquals(
             [
-                []
+                [],
             ],
             [
                 'saga' => [
                     'enabled' => false,
-                ]
+                ],
             ],
             'saga'
         );
@@ -55,14 +57,14 @@ class SagaConfigurationTest extends TestCase
                 [
                     'saga' => [
                         'state_repository' => 'my_saga_state_repository',
-                    ]
+                    ],
                 ],
             ],
             [
                 'saga' => [
-                    'enabled'          => true,
+                    'enabled' => true,
                     'state_repository' => 'my_saga_state_repository',
-                ]
+                ],
             ],
             'saga'
         );

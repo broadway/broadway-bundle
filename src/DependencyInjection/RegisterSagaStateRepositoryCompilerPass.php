@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -19,12 +21,12 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
 {
     public function process(ContainerBuilder $container)
     {
-        if (! $container->hasDefinition('broadway.saga.state.in_memory_repository')) {
+        if (!$container->hasDefinition('broadway.saga.state.in_memory_repository')) {
             return;
         }
 
         $serviceParameter = 'broadway.saga.state.repository.service_id';
-        if (! $container->hasParameter($serviceParameter)) {
+        if (!$container->hasParameter($serviceParameter)) {
             $container->setAlias(
                 'broadway.saga.state.repository',
                 new Alias('broadway.saga.state.in_memory_repository', true)

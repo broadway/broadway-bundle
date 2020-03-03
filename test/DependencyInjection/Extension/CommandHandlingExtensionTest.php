@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -26,7 +28,6 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-
     /**
      * @test
      */
@@ -50,7 +51,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'command_handling' => [
                 'logger' => 'my_service',
-            ]
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(
@@ -69,7 +70,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'command_handling' => [
                 'logger' => 'my_service',
-            ]
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(
@@ -88,8 +89,8 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->load([
             'command_handling' => [
                 'dispatch_events' => true,
-                'logger'          => 'my_service',
-            ]
+                'logger' => 'my_service',
+            ],
         ]);
 
         $this->assertContainerBuilderHasAlias(

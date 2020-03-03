@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the broadway/broadway package.
  *
@@ -23,7 +25,7 @@ class CommandMetadataEnricher implements MetadataEnricher
     private $event;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function enrich(Metadata $metadata): Metadata
     {
@@ -33,9 +35,9 @@ class CommandMetadataEnricher implements MetadataEnricher
 
         $data = [
             'console' => [
-                'command'   => get_class($this->event->getCommand()),
-                'arguments' => $this->event->getInput()->__toString()
-            ]
+                'command' => get_class($this->event->getCommand()),
+                'arguments' => $this->event->getInput()->__toString(),
+            ],
         ];
         $newMetadata = new Metadata($data);
 
