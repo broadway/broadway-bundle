@@ -9,11 +9,15 @@ test:
 	vendor/bin/phpunit --testdox --exclude-group=none --colors=always
 
 .PHONY: qa
-qa: php-cs-fixer
+qa: php-cs-fixer phpstan
 
 .PHONY: php-cs-fixer
 php-cs-fixer:
 	vendor/bin/php-cs-fixer fix --no-interaction --allow-risky=yes --diff --verbose
+
+PHONY: phpstan
+phpstan:
+	vendor/bin/phpstan analyse --level=5 src/
 
 .PHONY: changelog
 changelog:
@@ -21,7 +25,7 @@ changelog:
 
 .PHONY: license
 license:
-	vendor/bin/docheader check --no-interaction --ansi -vvv {src,test,examples}
+	vendor/bin/docheader check --no-interaction --ansi -vvv {src,test}
 
 # Based on https://suva.sh/posts/well-documented-makefiles/
 help:  ## Display this help
