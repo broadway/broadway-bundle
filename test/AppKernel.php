@@ -34,4 +34,14 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * added for Symfony 3.4, see https://github.com/symfony/http-kernel/blob/v4.4.5/Kernel.php#L411-414
+     */
+    public function getCacheDir()
+    {
+        return $this->getProjectDir().'/var/cache/'.$this->environment;
+    }
 }
