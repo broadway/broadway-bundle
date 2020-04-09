@@ -48,7 +48,7 @@
     "phpunit/phpunit": "^8.0",
     "matthiasnoback/symfony-config-test": "^4.0",
     "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-    "broadway/broadway-saga": "^0.8",
+    "broadway/broadway-saga": "^0.10",
     "broadway/coding-standard": "^1.0"
   },
   "suggest": {
