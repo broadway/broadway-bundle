@@ -6,9 +6,9 @@ cache:
         - vendor
 
 php:
-  - 7.2
   - 7.3
   - 7.4
+  - 8.0
 
 env:
   - SYMFONY_VERSION=3.4.*
@@ -18,12 +18,12 @@ env:
 
 matrix:
   include:
-    - php: 7.2
-      env: SYMFONY_VERSION=''
     - php: 7.3
       env: SYMFONY_VERSION=''
     - php: 7.4
       env: SYMFONY_VERSION=''
+    - php: 8.0
+      env: SYMFONY_VERSION="^5.2"
   fast_finish: true
 
 addons:
