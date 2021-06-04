@@ -62,6 +62,7 @@ jobs:
   static-analysis:
     name: "Static analysis"
     runs-on: "ubuntu-20.04"
+    continue-on-error: true
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v2"
