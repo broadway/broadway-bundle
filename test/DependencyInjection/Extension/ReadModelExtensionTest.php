@@ -31,7 +31,7 @@ class ReadModelExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_read_model_repository_factory_service_when_not_configured()
+    public function it_does_not_register_the_read_model_repository_factory_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -41,7 +41,7 @@ class ReadModelExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_registers_the_read_model_repository_factory_service_when_configured()
+    public function it_registers_the_read_model_repository_factory_service_when_configured(): void
     {
         $this->load([
             'read_model' => 'my_read_model_repository_factory',

@@ -34,7 +34,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * @test
      */
-    public function it_sets_the_saga_state_repository_alias_to_in_memory_by_default()
+    public function it_sets_the_saga_state_repository_alias_to_in_memory_by_default(): void
     {
         $this->compile();
 
@@ -49,7 +49,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * @test
      */
-    public function it_sets_the_saga_state_repository_alias()
+    public function it_sets_the_saga_state_repository_alias(): void
     {
         $this->container->setParameter(
             'broadway.saga.state.repository.service_id',
@@ -71,7 +71,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * @test
      */
-    public function it_throws_when_configured_saga_state_repository_has_no_definition()
+    public function it_throws_when_configured_saga_state_repository_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Service id "my_saga_state_repository" could not be found in container');
@@ -86,7 +86,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
     /**
      * @test
      */
-    public function it_throws_when_configured_saga_state_repository_does_not_implement_event_store_interface()
+    public function it_throws_when_configured_saga_state_repository_does_not_implement_event_store_interface(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Service "stdClass" must implement interface "Broadway\Saga\State\RepositoryInterface".');

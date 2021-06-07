@@ -32,7 +32,7 @@ class CommandHandlingConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_disables_logger_and_event_dispatching_by_default()
+    public function it_disables_logger_and_event_dispatching_by_default(): void
     {
         $this->assertProcessedConfigurationEquals(
             [],
@@ -49,7 +49,7 @@ class CommandHandlingConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_enables_event_dispatching_when_logger_is_enabled()
+    public function it_enables_event_dispatching_when_logger_is_enabled(): void
     {
         $this->assertProcessedConfigurationEquals(
             [

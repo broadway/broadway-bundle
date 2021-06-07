@@ -37,7 +37,7 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
     /**
      * @test
      */
-    public function it_registers_metadata_enrichers()
+    public function it_registers_metadata_enrichers(): void
     {
         $this->setDefinition(
             'broadway.metadata_enriching_event_stream_decorator',

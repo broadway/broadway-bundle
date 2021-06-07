@@ -37,7 +37,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_registers_event_listeners()
+    public function it_registers_event_listeners(): void
     {
         $this->setDefinition(
             'broadway.event_dispatcher',
@@ -88,7 +88,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_throws_when_event_listeners_has_no_event_or_method()
+    public function it_throws_when_event_listeners_has_no_event_or_method(): void
     {
         $this->expectException('RuntimeException');
         $this->expectExceptionMessage('Event Listener tag should contain the event and method (<tag name="broadway.event_listener" event="event_name" method="methodToCall" />)');

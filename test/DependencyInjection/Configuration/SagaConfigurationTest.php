@@ -32,7 +32,7 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_the_saga_state_repository_to_not_be_configured()
+    public function it_allows_the_saga_state_repository_to_not_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -50,7 +50,7 @@ class SagaConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_the_saga_state_repository_to_be_configured()
+    public function it_allows_the_saga_state_repository_to_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
             [

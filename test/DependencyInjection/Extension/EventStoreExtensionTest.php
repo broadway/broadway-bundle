@@ -31,7 +31,7 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_event_store_service_when_not_configured()
+    public function it_does_not_register_the_event_store_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -41,7 +41,7 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_registers_the_event_store_service_when_configured()
+    public function it_registers_the_event_store_service_when_configured(): void
     {
         $this->load([
             'event_store' => 'my_event_store',

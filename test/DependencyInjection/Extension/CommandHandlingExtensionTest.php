@@ -31,7 +31,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_creates_a_public_alias_to_the_simple_command_bus()
+    public function it_creates_a_public_alias_to_the_simple_command_bus(): void
     {
         $this->load([]);
 
@@ -46,7 +46,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_creates_a_public_alias_for_the_logging_command_bus()
+    public function it_creates_a_public_alias_for_the_logging_command_bus(): void
     {
         $this->load([
             'command_handling' => [
@@ -65,7 +65,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_creates_a_public_alias_for_the_auditing_logger()
+    public function it_creates_a_public_alias_for_the_auditing_logger(): void
     {
         $this->load([
             'command_handling' => [
@@ -84,7 +84,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_can_enable_the_event_dispatching_command_bus_but_not_the_logger()
+    public function it_can_enable_the_event_dispatching_command_bus_but_not_the_logger(): void
     {
         $this->load([
             'command_handling' => [

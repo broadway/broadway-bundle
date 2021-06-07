@@ -32,7 +32,7 @@ class SerializerConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_configures_default_serializers()
+    public function it_configures_default_serializers(): void
     {
         $this->assertProcessedConfigurationEquals(
             [],
@@ -50,7 +50,7 @@ class SerializerConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_configures_custom_serializers()
+    public function it_configures_custom_serializers(): void
     {
         $this->assertProcessedConfigurationEquals(
             [

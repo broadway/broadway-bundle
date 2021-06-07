@@ -31,7 +31,7 @@ class SerializerExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_configures_the_serializers()
+    public function it_configures_the_serializers(): void
     {
         $this->load([
             'serializer' => [
