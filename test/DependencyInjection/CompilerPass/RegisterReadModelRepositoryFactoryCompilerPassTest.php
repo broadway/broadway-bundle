@@ -32,7 +32,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * @test
      */
-    public function it_sets_the_read_model_repository_factory_alias_to_in_memory_by_default()
+    public function it_sets_the_read_model_repository_factory_alias_to_in_memory_by_default(): void
     {
         $this->compile();
 
@@ -47,7 +47,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * @test
      */
-    public function it_sets_the_read_model_repository_factory_alias()
+    public function it_sets_the_read_model_repository_factory_alias(): void
     {
         $this->container->setParameter(
             'broadway.read_model_repository_factory.service_id',
@@ -69,7 +69,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * @test
      */
-    public function it_throws_when_configured_read_model_repository_factory_has_no_definition()
+    public function it_throws_when_configured_read_model_repository_factory_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Service id "my_read_model_repository_factory" could not be found in container');
@@ -84,7 +84,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
     /**
      * @test
      */
-    public function it_throws_when_configured_read_model_repository_factory_does_not_implement_event_store_interface()
+    public function it_throws_when_configured_read_model_repository_factory_does_not_implement_event_store_interface(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Service "stdClass" must implement interface "Broadway\ReadModel\RepositoryFactory".');

@@ -39,7 +39,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
     /**
      * @test
      */
-    public function it_registers_event_bus_subscribers()
+    public function it_registers_event_bus_subscribers(): void
     {
         $this->setDefinition(
             'broadway.event_handling.event_bus',

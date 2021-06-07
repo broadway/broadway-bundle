@@ -24,7 +24,7 @@ class BroadwayBundleTest extends WebTestCase
      * @test
      * @doesNotPerformAssertions
      */
-    public function it_does_not_throw_when_booting_kernel()
+    public function it_does_not_throw_when_booting_kernel(): void
     {
         static::bootKernel();
     }

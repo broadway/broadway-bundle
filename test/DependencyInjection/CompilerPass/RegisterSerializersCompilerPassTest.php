@@ -31,7 +31,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_sets_the_public_serializer_aliases()
+    public function it_sets_the_public_serializer_aliases(): void
     {
         $this->setDefinition('my_serializer', new Definition());
 
@@ -53,7 +53,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_throws_when_serializer_has_no_definition()
+    public function it_throws_when_serializer_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Serializer with service id "my_serializer" could not be found');

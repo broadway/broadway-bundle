@@ -31,7 +31,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_saga_state_manager_service_when_not_configured()
+    public function it_does_not_register_the_saga_state_manager_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -41,7 +41,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_does_not_register_the_saga_state_repository_service_when_not_configured()
+    public function it_does_not_register_the_saga_state_repository_service_when_not_configured(): void
     {
         $this->load([]);
 
@@ -51,7 +51,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
     /**
      * @test
      */
-    public function it_registers_the_saga_state_repository_service_when_configured()
+    public function it_registers_the_saga_state_repository_service_when_configured(): void
     {
         $this->load([
             'saga' => [

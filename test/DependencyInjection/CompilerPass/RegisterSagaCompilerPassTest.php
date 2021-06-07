@@ -37,7 +37,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_registers_sagas()
+    public function it_registers_sagas(): void
     {
         $sagaManager = new Definition();
         $sagaManager->addArgument('my_saga_state_repository');
@@ -71,7 +71,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
     /**
      * @test
      */
-    public function it_throws_when_registering_sagas_without_type()
+    public function it_throws_when_registering_sagas_without_type(): void
     {
         $this->expectException('InvalidArgumentException');
         $this->expectExceptionMessage('Tag "broadway.saga" of service "my_saga_1" should have a "type" attribute, indicating the type of saga it represents');

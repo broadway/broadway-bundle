@@ -48,7 +48,7 @@ class CommandMetadataEnricherTest extends TestCase
     /**
      * @test
      */
-    public function it_adds_the_command_class_and_arguments()
+    public function it_adds_the_command_class_and_arguments(): void
     {
         $this->enricher->handleConsoleCommandEvent($this->event);
 

@@ -32,7 +32,7 @@ class ReadModelConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_the_read_model_repository_factory_to_not_be_configured()
+    public function it_allows_the_read_model_repository_factory_to_not_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
@@ -46,7 +46,7 @@ class ReadModelConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_allows_the_read_model_repository_factory_to_be_configured()
+    public function it_allows_the_read_model_repository_factory_to_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
             [
