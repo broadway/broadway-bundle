@@ -3,7 +3,7 @@ Broadway Bundle
 
 Symfony bundle to integrate Broadway into your Symfony application.
 
-[![Build Status](https://travis-ci.org/broadway/broadway-bundle.svg?branch=master)](https://travis-ci.org/broadway/broadway-bundle)
+![build status](https://github.com/broadway/broadway-bundle/actions/workflows/ci.yml/badge.svg)
 
 ## Installation
 
