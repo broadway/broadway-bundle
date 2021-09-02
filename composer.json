@@ -1,7 +1,7 @@
 {
-  "name": "broadway/broadway-bundle",
+  "name": "micro-module/broadway-bundle",
   "type": "symfony-bundle",
-  "description": "Symfony bundle for broadway/broadway.",
+  "description": "Symfony bundle for micro-module/broadway.",
   "keywords": [
     "cqrs",
     "event sourcing",
@@ -10,8 +10,8 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=7.2",
-    "broadway/broadway": "^2.2.1",
+    "php": ">=8.0",
+    "micro-module/broadway": "^2.0",
     "symfony/console": "^3.4||^4.4|^5.0",
     "symfony/http-kernel": "^3.4||^4.4|^5.0"
   },
@@ -48,13 +48,13 @@
     "phpunit/phpunit": "^9.5",
     "matthiasnoback/symfony-config-test": "^4.0",
     "matthiasnoback/symfony-dependency-injection-test": "^4.0",
-    "broadway/broadway-saga": "^1.0",
+    "micro-module/broadway-saga": "^0.5",
     "broadway/coding-standard": "^1.2",
     "phpstan/phpstan": "@stable"
   },
   "suggest": {
     "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
-    "broadway/event-store-dbal": "Event store implementation using doctrine/dbal",
+    "micro-module/event-store-dbal": "Event store implementation using doctrine/dbal",
     "broadway/read-model-elasticsearch": "Elasticsearch read model implementation using elastic/elasticsearch-php"
   },
   "autoload": {
