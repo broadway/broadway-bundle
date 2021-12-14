@@ -41,6 +41,8 @@ jobs:
         uses: "ramsey/composer-install@v1"
       - name: "Install specific Symfony version"
         run: "composer --no-update require symfony/symfony:^${{ matrix.symfony-version }}"
+      - name: "Show information about installed packages"
+        run: "composer info --installed"
       - name: "Run tests"
         run: "make test"
 
