@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterEventStoreCompilerPass extends CompilerPass
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $serviceParameter = 'broadway.event_store.service_id';
         if (!$container->hasParameter($serviceParameter)) {
@@ -29,6 +29,9 @@ class RegisterEventStoreCompilerPass extends CompilerPass
         }
 
         $serviceId = $container->getParameter($serviceParameter);
+        if (false === is_string($serviceId)) {
+            return;
+        }
 
         $this->assertDefinitionImplementsInterface($container, $serviceId, EventStore::class);
 

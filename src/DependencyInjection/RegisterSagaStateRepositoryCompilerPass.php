@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition('broadway.saga.state.in_memory_repository')) {
             return;
@@ -36,6 +36,9 @@ class RegisterSagaStateRepositoryCompilerPass extends CompilerPass
         }
 
         $serviceId = $container->getParameter($serviceParameter);
+        if (false === is_string($serviceId)) {
+            return;
+        }
 
         $this->assertDefinitionImplementsInterface($container, $serviceId, RepositoryInterface::class);
 

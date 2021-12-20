@@ -24,7 +24,7 @@ class SagaConfigurationTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function getConfiguration()
+    protected function getConfiguration(): Configuration
     {
         return new Configuration();
     }
