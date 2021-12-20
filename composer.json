@@ -1,20 +1,14 @@
 {
   "name": "broadway/broadway-bundle",
-  "type": "symfony-bundle",
   "description": "Symfony bundle for broadway/broadway.",
+  "license": "MIT",
+  "type": "symfony-bundle",
   "keywords": [
     "cqrs",
     "event sourcing",
     "domain-driven design",
     "ddd"
   ],
-  "license": "MIT",
-  "require": {
-    "php": ">=7.2",
-    "broadway/broadway": "^2.2.1",
-    "symfony/console": "^3.4||^4.4|^5.0",
-    "symfony/http-kernel": "^3.4||^4.4|^5.0"
-  },
   "authors": [
     {
       "name": "Alexander",
@@ -41,21 +35,27 @@
       "homepage": "http://labs.qandidate.com/"
     }
   ],
+  "require": {
+    "php": ">=7.2",
+    "broadway/broadway": "^2.2.1",
+    "symfony/console": "^3.4 || ^4.4 || ^5.0",
+    "symfony/http-kernel": "^3.4 || ^4.4 || ^5.0"
+  },
   "require-dev": {
-    "symfony/framework-bundle": "^3.4||^4.4|^5.0",
-    "monolog/monolog": "~2.0",
-    "symfony/proxy-manager-bridge": "^3.4||^4.4|^5.0",
-    "phpunit/phpunit": "^9.5",
-    "matthiasnoback/symfony-config-test": "^4.0",
-    "matthiasnoback/symfony-dependency-injection-test": "^4.0",
     "broadway/broadway-saga": "^1.0",
     "broadway/coding-standard": "^1.2",
-    "phpstan/phpstan": "@stable"
+    "matthiasnoback/symfony-config-test": "^4.0",
+    "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+    "monolog/monolog": "~2.0",
+    "phpstan/phpstan": "@stable",
+    "phpunit/phpunit": "^9.5",
+    "symfony/framework-bundle": "^3.4 || ^4.4 || ^5.0",
+    "symfony/proxy-manager-bridge": "^3.4 || ^4.4 || ^5.0"
   },
   "suggest": {
-    "psr/log-implementation": "Implementation for PSR3, LoggerInterface",
     "broadway/event-store-dbal": "Event store implementation using doctrine/dbal",
-    "broadway/read-model-elasticsearch": "Elasticsearch read model implementation using elastic/elasticsearch-php"
+    "broadway/read-model-elasticsearch": "Elasticsearch read model implementation using elastic/elasticsearch-php",
+    "psr/log-implementation": "Implementation for PSR3, LoggerInterface"
   },
   "autoload": {
     "psr-4": {
