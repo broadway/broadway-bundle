@@ -22,7 +22,6 @@ jobs:
           - "8.0"
         symfony-version: # https://symfony.com/releases
           - "4.4"
-          - "5.2"
           - "5.3"
     steps:
       - name: "Checkout"
