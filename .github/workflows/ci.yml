@@ -32,14 +32,15 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "none"
+          tools: "flex"
         env:
           fail-fast: true
       - name: "Validate composer.json and composer.lock"
         run: "composer validate --strict --no-interaction --ansi"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v1"
-      - name: "Install specific Symfony version"
-        run: "composer --no-update require symfony/symfony:^${{ matrix.symfony-version }}"
+        env:
+          SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
       - name: "Run tests"
         run: "make test"
 
