@@ -32,7 +32,7 @@ class BroadwayBundleTest extends WebTestCase
     /**
      * {@inheritdoc}
      */
-    protected static function createKernel(array $options = [])
+    protected static function createKernel(array $options = []): AppKernel
     {
         return new AppKernel('test', true);
     }
