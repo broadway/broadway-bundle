@@ -50,7 +50,8 @@
     "phpstan/phpstan": "@stable",
     "phpunit/phpunit": "^9.5",
     "symfony/framework-bundle": "^4.4 || ^5.3",
-    "symfony/proxy-manager-bridge": "^4.4 || ^5.3"
+    "symfony/proxy-manager-bridge": "^4.4 || ^5.3",
+    "phpstan/phpstan-symfony": "^1.0"
   },
   "suggest": {
     "broadway/event-store-dbal": "Event store implementation using doctrine/dbal",
