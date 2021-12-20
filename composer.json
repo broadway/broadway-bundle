@@ -43,7 +43,6 @@
   },
   "require-dev": {
     "broadway/broadway-saga": "^1.0",
-    "broadway/coding-standard": "^1.2",
     "matthiasnoback/symfony-config-test": "^4.0",
     "matthiasnoback/symfony-dependency-injection-test": "^4.0",
     "monolog/monolog": "~2.0",
@@ -51,7 +50,8 @@
     "phpunit/phpunit": "^9.5",
     "symfony/framework-bundle": "^4.4 || ^5.3",
     "symfony/proxy-manager-bridge": "^4.4 || ^5.3",
-    "phpstan/phpstan-symfony": "^1.0"
+    "phpstan/phpstan-symfony": "^1.0",
+    "friendsofphp/php-cs-fixer": "^3.0"
   },
   "suggest": {
     "broadway/event-store-dbal": "Event store implementation using doctrine/dbal",
