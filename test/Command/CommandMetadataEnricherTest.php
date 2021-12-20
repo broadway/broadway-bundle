@@ -14,18 +14,44 @@ declare(strict_types=1);
 namespace Broadway\Bundle\BroadwayBundle\Command;
 
 use Broadway\Domain\Metadata;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CommandMetadataEnricherTest extends TestCase
 {
+    /**
+     * @var MyCommand
+     */
     private $command;
+
+    /**
+     * @var string
+     */
+    private $arguments;
+
+    /**
+     * @var MockObject&ArgvInput
+     */
     private $input;
+
+    /**
+     * @var ConsoleCommandEvent
+     */
     private $event;
+
+    /**
+     * @var CommandMetadataEnricher
+     */
     private $enricher;
+
+    /**
+     * @var Metadata
+     */
     private $metadata;
 
     public function setUp(): void
@@ -33,7 +59,7 @@ class CommandMetadataEnricherTest extends TestCase
         $this->command = new MyCommand();
         $this->arguments = 'broadway:test:command argument --option=true --env=dev';
 
-        $this->input = $this->createMock('Symfony\Component\Console\Input\ArgvInput');
+        $this->input = $this->createMock(ArgvInput::class);
         $this->input->expects($this->any())
             ->method('__toString')
             ->will($this->returnValue($this->arguments));
@@ -66,15 +92,15 @@ class CommandMetadataEnricherTest extends TestCase
 
 class MyCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('broadway:test:command')
             ->setDescription('This is a test command');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        return;
+        return 0;
     }
 }

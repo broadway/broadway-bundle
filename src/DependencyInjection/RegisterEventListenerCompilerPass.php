@@ -40,7 +40,7 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition($this->eventDispatcherId) && !$container->hasAlias($this->eventDispatcherId)) {
             return;
@@ -53,7 +53,10 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
         }
     }
 
-    private function processListenerDefinition(ContainerBuilder $container, Definition $dispatcher, $listenerId)
+    /**
+     * @param string $listenerId
+     */
+    private function processListenerDefinition(ContainerBuilder $container, Definition $dispatcher, $listenerId): void
     {
         $def = $container->getDefinition($listenerId);
         $tags = $def->getTag($this->serviceTag);

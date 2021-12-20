@@ -32,7 +32,7 @@ class RegisterSagaCompilerPass implements CompilerPassInterface
         $this->tagName = $tagName;
     }
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has($this->multipleSagaManagerService)) {
             return;

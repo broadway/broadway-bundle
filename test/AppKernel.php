@@ -21,7 +21,7 @@ class AppKernel extends Kernel
     /**
      * {@inheritdoc}
      */
-    public function registerBundles()
+    public function registerBundles(): array
     {
         return [
             new BroadwayBundle(),
@@ -31,7 +31,7 @@ class AppKernel extends Kernel
     /**
      * {@inheritdoc}
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
     }
 
@@ -40,7 +40,7 @@ class AppKernel extends Kernel
      *
      * added for Symfony 3.4, see https://github.com/symfony/http-kernel/blob/v4.4.5/Kernel.php#L411-414
      */
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return $this->getProjectDir().'/var/cache/'.$this->environment;
     }

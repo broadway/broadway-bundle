@@ -23,7 +23,7 @@ abstract class CompilerPass implements CompilerPassInterface
     /**
      * @param string $definitionId
      */
-    protected function assertContainerHasDefinition(ContainerBuilder $container, $definitionId)
+    protected function assertContainerHasDefinition(ContainerBuilder $container, $definitionId): void
     {
         if (!$container->hasDefinition($definitionId)) {
             throw new InvalidArgumentException(sprintf('Service id "%s" could not be found in container', $definitionId));
@@ -34,7 +34,7 @@ abstract class CompilerPass implements CompilerPassInterface
      * @param string $definitionId
      * @param string $interface
      */
-    protected function assertDefinitionImplementsInterface(ContainerBuilder $container, $definitionId, $interface)
+    protected function assertDefinitionImplementsInterface(ContainerBuilder $container, $definitionId, $interface): void
     {
         $this->assertContainerHasDefinition($container, $definitionId);
 
