@@ -22,7 +22,7 @@ jobs:
           - "8.0"
           - "8.1"
         symfony-version: # https://symfony.com/releases
-          - "4.4"
+          - "4.4.20"
           - "5.3"
           - "5.4"
     steps:
