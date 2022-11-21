@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -63,7 +62,7 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
 
         foreach ($tags as $tag) {
             if (!isset($tag['event']) || !isset($tag['method'])) {
-                throw new RuntimeException(sprintf('Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)', $this->serviceTag));
+                throw new \RuntimeException(sprintf('Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)', $this->serviceTag));
             }
 
             $dispatcher->addMethodCall(

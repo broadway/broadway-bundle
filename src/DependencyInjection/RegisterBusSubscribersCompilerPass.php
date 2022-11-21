@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use InvalidArgumentException;
-use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -56,10 +54,10 @@ class RegisterBusSubscribersCompilerPass implements CompilerPassInterface
             // Definition getClass can return a parameter
             $class = $container->getParameterBag()->resolveValue($def->getClass());
 
-            $refClass = new ReflectionClass($class);
+            $refClass = new \ReflectionClass($class);
 
             if (!$refClass->implementsInterface($this->subscriberInterface)) {
-                throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $this->subscriberInterface));
+                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $this->subscriberInterface));
             }
 
             $definition->addMethodCall('subscribe', [new Reference($id)]);
