@@ -45,7 +45,7 @@ jobs:
       - name: "Validate composer.json and composer.lock"
         run: "composer validate --strict --no-interaction --ansi"
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
+        uses: "ramsey/composer-install@v2"
         env:
           SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
       - name: "Run tests"
@@ -63,7 +63,7 @@ jobs:
           php-version: "8.0"
           coverage: "none"
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
+        uses: "ramsey/composer-install@v2"
       - name: "Check coding standards"
         run: "make php-cs-fixer-ci"
 
@@ -80,6 +80,6 @@ jobs:
           php-version: "8.0"
           coverage: "none"
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
+        uses: "ramsey/composer-install@v2"
       - name: "Run PHPStan"
         run: "make phpstan"
