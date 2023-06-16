@@ -38,9 +38,6 @@ class RegisterBusSubscribersCompilerPass implements CompilerPassInterface
         $this->subscriberInterface = $subscriberInterface;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition($this->busService) && !$container->hasAlias($this->busService)) {

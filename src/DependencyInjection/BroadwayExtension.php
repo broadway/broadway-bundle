@@ -22,9 +22,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class BroadwayExtension extends ConfigurableExtension
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
