@@ -21,9 +21,6 @@ class SerializerConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getConfiguration(): Configuration
     {
         return new Configuration();

@@ -36,9 +36,6 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
         $this->serviceTag = $serviceTag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition($this->eventDispatcherId) && !$container->hasAlias($this->eventDispatcherId)) {

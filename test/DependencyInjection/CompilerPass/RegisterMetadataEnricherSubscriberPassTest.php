@@ -21,9 +21,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(

@@ -18,9 +18,6 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 class ReadModelExtensionTest extends AbstractExtensionTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function getContainerExtensions(): array
     {
         return [
