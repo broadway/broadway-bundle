@@ -35,15 +35,11 @@ class RegisterMetadataEnricherSubscriberPass implements CompilerPassInterface
         $this->enricherTag = $enricherTag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (
             !$container->hasDefinition($this->enrichingStreamDecoratorServiceId)
-            &&
-            !$container->hasAlias($this->enrichingStreamDecoratorServiceId)
+            && !$container->hasAlias($this->enrichingStreamDecoratorServiceId)
         ) {
             return;
         }

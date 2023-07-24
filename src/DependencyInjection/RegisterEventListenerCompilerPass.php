@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Broadway\Bundle\BroadwayBundle\DependencyInjection;
 
-use RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -37,10 +36,7 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
         $this->serviceTag = $serviceTag;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition($this->eventDispatcherId) && !$container->hasAlias($this->eventDispatcherId)) {
             return;
@@ -53,14 +49,17 @@ class RegisterEventListenerCompilerPass implements CompilerPassInterface
         }
     }
 
-    private function processListenerDefinition(ContainerBuilder $container, Definition $dispatcher, $listenerId)
+    /**
+     * @param string $listenerId
+     */
+    private function processListenerDefinition(ContainerBuilder $container, Definition $dispatcher, $listenerId): void
     {
         $def = $container->getDefinition($listenerId);
         $tags = $def->getTag($this->serviceTag);
 
         foreach ($tags as $tag) {
             if (!isset($tag['event']) || !isset($tag['method'])) {
-                throw new RuntimeException(sprintf('Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)', $this->serviceTag));
+                throw new \RuntimeException(sprintf('Event Listener tag should contain the event and method (<tag name="%s" event="event_name" method="methodToCall" />)', $this->serviceTag));
             }
 
             $dispatcher->addMethodCall(

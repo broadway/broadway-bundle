@@ -1,7 +1,9 @@
+includes:
+	- vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
 	paths:
 		- .
-	excludes_analyse:
+	excludePaths:
 		- Tests/
 		- vendor/
 		- var/

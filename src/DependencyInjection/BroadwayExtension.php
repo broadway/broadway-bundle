@@ -22,10 +22,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class BroadwayExtension extends ConfigurableExtension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
@@ -53,7 +50,7 @@ class BroadwayExtension extends ConfigurableExtension
         }
     }
 
-    private function loadCommandBus(array $config, ContainerBuilder $container, LoaderInterface $loader)
+    private function loadCommandBus(array $config, ContainerBuilder $container, LoaderInterface $loader): void
     {
         if ($config['dispatch_events']) {
             $container->setAlias(
@@ -73,7 +70,7 @@ class BroadwayExtension extends ConfigurableExtension
         }
     }
 
-    private function loadSerializers(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function loadSerializers(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
     {
         $loader->load('serializers.xml');
 

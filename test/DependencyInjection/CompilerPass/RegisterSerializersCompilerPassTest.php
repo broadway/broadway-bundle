@@ -20,9 +20,6 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new RegisterSerializersCompilerPass());

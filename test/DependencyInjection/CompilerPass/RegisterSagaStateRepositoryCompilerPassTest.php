@@ -21,9 +21,6 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTestCase
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $this->setDefinition('broadway.saga.state.in_memory_repository', new Definition(RepositoryInterface::class));

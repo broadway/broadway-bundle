@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $serviceParameter = 'broadway.read_model_repository_factory.service_id';
         if (!$container->hasParameter($serviceParameter)) {
@@ -32,6 +32,9 @@ class RegisterReadModelRepositoryFactoryCompilerPass extends CompilerPass
         }
 
         $serviceId = $container->getParameter($serviceParameter);
+        if (false === is_string($serviceId)) {
+            return;
+        }
 
         $this->assertDefinitionImplementsInterface($container, $serviceId, RepositoryFactory::class);
 

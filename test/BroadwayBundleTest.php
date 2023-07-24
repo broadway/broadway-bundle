@@ -22,6 +22,7 @@ class BroadwayBundleTest extends WebTestCase
 {
     /**
      * @test
+     *
      * @doesNotPerformAssertions
      */
     public function it_does_not_throw_when_booting_kernel(): void
@@ -29,10 +30,7 @@ class BroadwayBundleTest extends WebTestCase
         static::bootKernel();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected static function createKernel(array $options = [])
+    protected static function createKernel(array $options = []): AppKernel
     {
         return new AppKernel('test', true);
     }

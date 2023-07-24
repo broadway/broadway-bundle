@@ -22,21 +22,21 @@ use Symfony\Component\Console\Event\ConsoleCommandEvent;
  */
 class CommandMetadataEnricher implements MetadataEnricher
 {
+    /**
+     * @var ConsoleCommandEvent|null
+     */
     private $event;
 
-    /**
-     * {@inheritdoc}
-     */
     public function enrich(Metadata $metadata): Metadata
     {
-        if (null === $this->event) {
+        if (null === $this->event || null === $this->event->getCommand()) {
             return $metadata;
         }
 
         $data = [
             'console' => [
                 'command' => get_class($this->event->getCommand()),
-                'arguments' => $this->event->getInput()->__toString(),
+                'arguments' => method_exists($this->event->getInput(), '__toString') ? (string) $this->event->getInput() : '',
             ],
         ];
         $newMetadata = new Metadata($data);
@@ -44,7 +44,7 @@ class CommandMetadataEnricher implements MetadataEnricher
         return $metadata->merge($newMetadata);
     }
 
-    public function handleConsoleCommandEvent(ConsoleCommandEvent $event)
+    public function handleConsoleCommandEvent(ConsoleCommandEvent $event): void
     {
         $this->event = $event;
     }

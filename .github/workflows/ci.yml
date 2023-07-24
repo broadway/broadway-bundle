@@ -15,49 +15,45 @@ jobs:
     name: "Run tests"
     runs-on: "ubuntu-20.04"
     strategy:
+      fail-fast: false
       matrix:
-        php-version:
-          - "7.3"
+        php-version: # https://www.php.net/supported-versions.php
           - "7.4"
           - "8.0"
+          - "8.1"
+          - "8.2"
         symfony-version: # https://symfony.com/releases
-          - "4.4"
-          - "5.2"
+          - "4.4.20"
           - "5.3"
+          - "5.4"
+          - "6.0"
+        exclude:
+          # Symfony 6 requires PHP 8+
+          -   php-version: '7.4'
+              symfony-version: '6.0'
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "none"
+          tools: "flex"
         env:
           fail-fast: true
       - name: "Validate composer.json and composer.lock"
         run: "composer validate --strict --no-interaction --ansi"
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
-      - name: "Install specific Symfony version"
-        run: "composer --no-update require symfony/symfony:^${{ matrix.symfony-version }}"
+        uses: "ramsey/composer-install@v2"
+        env:
+          SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
       - name: "Run tests"
         run: "make test"
 
-  coding-standards:
-    name: "Coding standards"
-    runs-on: "ubuntu-20.04"
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          php-version: "8.0"
-          coverage: "none"
-      - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
-      - name: "Check coding standards"
-        run: "make php-cs-fixer-ci"
+  check-coding-standards:
+    name: "Check coding standards"
+    uses: "broadway/github-actions/.github/workflows/check-coding-standards.yml@main"
 
   static-analysis:
     name: "Static analysis"
@@ -65,13 +61,13 @@ jobs:
     continue-on-error: true
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v3"
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.0"
           coverage: "none"
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
+        uses: "ramsey/composer-install@v2"
       - name: "Run PHPStan"
         run: "make phpstan"

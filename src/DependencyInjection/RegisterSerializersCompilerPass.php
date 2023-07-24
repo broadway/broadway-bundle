@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class RegisterSerializersCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         foreach (['metadata', 'payload', 'readmodel'] as $serializer) {
             $serviceParameter = sprintf('broadway.serializer.%s.service_id', $serializer);
@@ -28,6 +28,9 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
             }
 
             $id = $container->getParameter($serviceParameter);
+            if (false === is_string($id)) {
+                continue;
+            }
 
             if (!$container->hasDefinition($id)) {
                 throw new \InvalidArgumentException(sprintf('Serializer with service id "%s" could not be found', $id));
@@ -35,10 +38,7 @@ class RegisterSerializersCompilerPass implements CompilerPassInterface
 
             $container->setAlias(
                 sprintf('broadway.serializer.%s', $serializer),
-                new Alias(
-                    $container->getParameter(sprintf('broadway.serializer.%s.service_id', $serializer)),
-                    true
-                )
+                new Alias($id, true)
             );
         }
     }
