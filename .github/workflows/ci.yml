@@ -22,10 +22,7 @@ jobs:
           - "8.2"
           - "8.3"
         symfony-version: # https://symfony.com/releases
-          - "4.4.20"
-          - "5.3"
-          - "5.4"
-          - "6.3"
+          - "5.4.37"
           - "6.4"
           - "7.0"
         exclude:
