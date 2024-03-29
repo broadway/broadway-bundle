@@ -18,33 +18,15 @@ jobs:
       fail-fast: false
       matrix:
         php-version: # https://www.php.net/supported-versions.php
-          - "7.4"
-          - "8.0"
           - "8.1"
           - "8.2"
           - "8.3"
         symfony-version: # https://symfony.com/releases
-          - "4.4.20"
-          - "5.3"
           - "5.4"
-          - "6.3"
           - "6.4"
           - "7.0"
         exclude:
-          # Symfony 6.1+ requires PHP 8.1+
-          -   php-version: '7.4'
-              symfony-version: '6.3'
-          -   php-version: '8.0'
-              symfony-version: '6.3'
-          -   php-version: '7.4'
-              symfony-version: '6.4'
-          -   php-version: '8.0'
-              symfony-version: '6.4'
           # Symfony 7 requires PHP 8.2+
-          -   php-version: '7.4'
-              symfony-version: '7.0'
-          -   php-version: '8.0'
-              symfony-version: '7.0'
           -   php-version: '8.1'
               symfony-version: '7.0'
     steps:
@@ -55,15 +37,14 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "none"
-          tools: "flex"
         env:
           fail-fast: true
       - name: "Validate composer.json and composer.lock"
         run: "composer validate --strict --no-interaction --ansi"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v2"
-        env:
-          SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
+      - name: "Install specific Symfony version"
+        run: "composer require --no-interaction symfony/console:^${{ matrix.symfony-version }} symfony/http-kernel:^${{ matrix.symfony-version }} symfony/framework-bundle:^${{ matrix.symfony-version }} symfony/yaml:^${{ matrix.symfony-version }} -W"
       - name: "Run tests"
         run: "make test"
 
@@ -81,7 +62,7 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          php-version: "8.3"
+          php-version: "8.0"
           coverage: "none"
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v2"
