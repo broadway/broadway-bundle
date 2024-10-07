@@ -47,7 +47,7 @@
     "matthiasnoback/symfony-dependency-injection-test": "^4.0 || ^5.0",
     "monolog/monolog": "~2.0",
     "phpstan/phpstan": "@stable",
-    "phpunit/phpunit": "^9.5",
+    "phpunit/phpunit": "^11.4",
     "symfony/framework-bundle": "^4.4 || ^5.3 || ^6.0 || ^7.0",
     "symfony/proxy-manager-bridge": "^4.4 || ^5.3 || ^6.0",
     "phpstan/phpstan-symfony": "^1.0",
