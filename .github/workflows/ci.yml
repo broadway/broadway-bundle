@@ -25,6 +25,13 @@ jobs:
         symfony-version: # https://symfony.com/releases
           - "6.4"
           - "7.4"
+          - "8.1"
+        exclude:
+          # Symfony 8 requires PHP 8.4+
+          -   php-version: "8.2"
+              symfony-version: "8.1"
+          -   php-version: "8.3"
+              symfony-version: "8.1"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v7"
