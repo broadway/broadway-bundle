@@ -1,0 +1,115 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Console\\Input\\InputInterface and ''__toString'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Command/CommandMetadataEnricher.php
+
+		-
+			message: '#^Cannot access offset ''enabled'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Cannot access offset ''state_repository'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Method Broadway\\Bundle\\BroadwayBundle\\DependencyInjection\\BroadwayExtension\:\:loadCommandBus\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Method Broadway\\Bundle\\BroadwayBundle\\DependencyInjection\\BroadwayExtension\:\:loadInternal\(\) has parameter \$mergedConfig with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Method Broadway\\Bundle\\BroadwayBundle\\DependencyInjection\\BroadwayExtension\:\:loadSerializers\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Parameter \#1 \$config of method Broadway\\Bundle\\BroadwayBundle\\DependencyInjection\\BroadwayExtension\:\:loadCommandBus\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Parameter \#1 \$config of method Broadway\\Bundle\\BroadwayBundle\\DependencyInjection\\BroadwayExtension\:\:loadSerializers\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Parameter \#1 \$id of class Symfony\\Component\\DependencyInjection\\Alias constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Parameter \#2 \$value of method Symfony\\Component\\DependencyInjection\\Container\:\:setParameter\(\) expects array\|bool\|float\|int\|string\|UnitEnum\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: src/DependencyInjection/BroadwayExtension.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/CompilerPass.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/CompilerPass.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrClass of class ReflectionClass constructor expects class\-string\<T of object\>\|T of object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DependencyInjection/RegisterBusSubscribersCompilerPass.php
+
+		-
+			message: '#^Cannot access offset ''event'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DependencyInjection/RegisterEventListenerCompilerPass.php
+
+		-
+			message: '#^Cannot access offset ''method'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DependencyInjection/RegisterEventListenerCompilerPass.php
+
+		-
+			message: '#^Cannot access offset ''type'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DependencyInjection/RegisterSagaCompilerPass.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: src/DependencyInjection/RegisterSagaCompilerPass.php
+
+		-
+			message: '#^Method Broadway\\Bundle\\BroadwayBundle\\AppKernel\:\:registerBundles\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: test/AppKernel.php
+
+		-
+			message: '#^Method Broadway\\Bundle\\BroadwayBundle\\BroadwayBundleTest\:\:createKernel\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: test/BroadwayBundleTest.php
