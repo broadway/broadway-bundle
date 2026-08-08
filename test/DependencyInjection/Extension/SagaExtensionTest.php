@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Extension;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\BroadwayExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SagaExtensionTest extends AbstractExtensionTestCase
 {
@@ -25,9 +26,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_register_the_saga_state_manager_service_when_not_configured(): void
     {
         $this->load([]);
@@ -35,9 +34,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
         $this->assertFalse($this->container->hasDefinition('broadway.saga.state.state_manager'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_register_the_saga_state_repository_service_when_not_configured(): void
     {
         $this->load([]);
@@ -45,9 +42,7 @@ class SagaExtensionTest extends AbstractExtensionTestCase
         $this->assertFalse($this->container->hasParameter('broadway.saga.state.repository.service_id'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_the_saga_state_repository_service_when_configured(): void
     {
         $this->load([

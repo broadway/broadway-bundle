@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class EventStoreConfigurationTest extends TestCase
@@ -26,9 +27,7 @@ class EventStoreConfigurationTest extends TestCase
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_event_store_to_not_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
@@ -40,9 +39,7 @@ class EventStoreConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_event_store_to_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(

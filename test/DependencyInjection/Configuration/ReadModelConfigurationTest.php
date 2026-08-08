@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class ReadModelConfigurationTest extends TestCase
@@ -26,9 +27,7 @@ class ReadModelConfigurationTest extends TestCase
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_read_model_repository_factory_to_not_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
@@ -40,9 +39,7 @@ class ReadModelConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_read_model_repository_factory_to_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(

@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterEventListenerCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,9 +32,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_event_listeners(): void
     {
         $this->setDefinition(
@@ -82,9 +81,7 @@ class RegisterEventListenerCompilerPassTest extends AbstractCompilerPassTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_event_listeners_has_no_event_or_method(): void
     {
         $this->expectException('RuntimeException');

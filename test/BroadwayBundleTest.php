@@ -13,18 +13,16 @@ declare(strict_types=1);
 
 namespace Broadway\Bundle\BroadwayBundle;
 
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @group functional
- */
+#[Group('functional')]
 class BroadwayBundleTest extends WebTestCase
 {
-    /**
-     * @test
-     *
-     * @doesNotPerformAssertions
-     */
+    #[Test]
+    #[DoesNotPerformAssertions]
     public function it_does_not_throw_when_booting_kernel(): void
     {
         static::bootKernel();

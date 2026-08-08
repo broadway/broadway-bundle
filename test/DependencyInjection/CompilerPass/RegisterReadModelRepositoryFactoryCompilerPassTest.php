@@ -16,6 +16,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterReadModelRepositoryFactoryCompilerPass;
 use Broadway\ReadModel\RepositoryFactory;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -26,9 +27,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
         $container->addCompilerPass(new RegisterReadModelRepositoryFactoryCompilerPass());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_sets_the_read_model_repository_factory_alias_to_in_memory_by_default(): void
     {
         $this->compile();
@@ -41,9 +40,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
         $this->assertTrue($this->container->getAlias('broadway.read_model.repository_factory')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_sets_the_read_model_repository_factory_alias(): void
     {
         $this->container->setParameter(
@@ -63,9 +60,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
         $this->assertTrue($this->container->getAlias('broadway.read_model.repository_factory')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_configured_read_model_repository_factory_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');
@@ -78,9 +73,7 @@ class RegisterReadModelRepositoryFactoryCompilerPassTest extends AbstractCompile
         $this->compile();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_configured_read_model_repository_factory_does_not_implement_event_store_interface(): void
     {
         $this->expectException('InvalidArgumentException');

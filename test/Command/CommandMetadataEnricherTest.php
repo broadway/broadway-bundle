@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Broadway\Bundle\BroadwayBundle\Command;
 
 use Broadway\Domain\Metadata;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
@@ -62,7 +63,7 @@ class CommandMetadataEnricherTest extends TestCase
         $this->input = $this->createMock(ArgvInput::class);
         $this->input->expects($this->any())
             ->method('__toString')
-            ->will($this->returnValue($this->arguments));
+            ->willReturn($this->arguments);
 
         $output = $this->createMock('Symfony\Component\Console\Output\OutputInterface');
 
@@ -71,9 +72,7 @@ class CommandMetadataEnricherTest extends TestCase
         $this->metadata = new Metadata(['yolo' => 'bam']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_adds_the_command_class_and_arguments(): void
     {
         $this->enricher->handleConsoleCommandEvent($this->event);

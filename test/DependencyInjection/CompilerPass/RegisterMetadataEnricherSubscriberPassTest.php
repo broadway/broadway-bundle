@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterMetadataEnricherSubscriberPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,9 +32,7 @@ class RegisterMetadataEnricherSubscriberPassTest extends AbstractCompilerPassTes
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_metadata_enrichers(): void
     {
         $this->setDefinition(

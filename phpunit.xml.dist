@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         bootstrap="vendor/autoload.php"
->
+<phpunit backupGlobals="false" colors="true" processIsolation="false" stopOnFailure="false" bootstrap="vendor/autoload.php" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
   <testsuites>
     <testsuite name="Broadway Bundle Test Suite">
       <directory>./test/</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist>
-      <directory suffix=".php">./src/</directory>
-    </whitelist>
-  </filter>
   <groups>
     <exclude>
       <group>functional</group>
     </exclude>
   </groups>
+  <source>
+    <include>
+      <directory suffix=".php">./src/</directory>
+    </include>
+  </source>
 </phpunit>

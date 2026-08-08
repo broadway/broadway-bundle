@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,9 +32,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_sagas(): void
     {
         $sagaManager = new Definition();
@@ -65,9 +64,7 @@ class RegisterSagaCompilerPassTest extends AbstractCompilerPassTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_registering_sagas_without_type(): void
     {
         $this->expectException('InvalidArgumentException');
