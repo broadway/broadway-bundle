@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Extension;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\BroadwayExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class CommandHandlingExtensionTest extends AbstractExtensionTestCase
 {
@@ -25,9 +26,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_creates_a_public_alias_to_the_simple_command_bus(): void
     {
         $this->load([]);
@@ -40,9 +39,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->assertTrue($this->container->getAlias('broadway.command_handling.command_bus')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_creates_a_public_alias_for_the_logging_command_bus(): void
     {
         $this->load([
@@ -59,9 +56,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->assertTrue($this->container->getAlias('broadway.command_handling.command_bus')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_creates_a_public_alias_for_the_auditing_logger(): void
     {
         $this->load([
@@ -78,9 +73,7 @@ class CommandHandlingExtensionTest extends AbstractExtensionTestCase
         $this->assertTrue($this->container->getAlias('broadway.auditing.logger')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_can_enable_the_event_dispatching_command_bus_but_not_the_logger(): void
     {
         $this->load([

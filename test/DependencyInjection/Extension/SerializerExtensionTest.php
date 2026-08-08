@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Extension;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\BroadwayExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SerializerExtensionTest extends AbstractExtensionTestCase
 {
@@ -25,9 +26,7 @@ class SerializerExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_the_serializers(): void
     {
         $this->load([

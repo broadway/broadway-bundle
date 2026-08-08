@@ -16,6 +16,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSagaStateRepositoryCompilerPass;
 use Broadway\Saga\State\RepositoryInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -28,9 +29,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
         $container->addCompilerPass(new RegisterSagaStateRepositoryCompilerPass());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_sets_the_saga_state_repository_alias_to_in_memory_by_default(): void
     {
         $this->compile();
@@ -43,9 +42,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
         $this->assertTrue($this->container->getAlias('broadway.saga.state.repository')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_sets_the_saga_state_repository_alias(): void
     {
         $this->container->setParameter(
@@ -65,9 +62,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
         $this->assertTrue($this->container->getAlias('broadway.saga.state.repository')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_configured_saga_state_repository_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');
@@ -80,9 +75,7 @@ class RegisterSagaStateRepositoryCompilerPassTest extends AbstractCompilerPassTe
         $this->compile();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_configured_saga_state_repository_does_not_implement_event_store_interface(): void
     {
         $this->expectException('InvalidArgumentException');

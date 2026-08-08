@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterSerializersCompilerPass;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -25,9 +26,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new RegisterSerializersCompilerPass());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_sets_the_public_serializer_aliases(): void
     {
         $this->setDefinition('my_serializer', new Definition());
@@ -47,9 +46,7 @@ class RegisterSerializersCompilerPassTest extends AbstractCompilerPassTestCase
         $this->assertTrue($this->container->getAlias('broadway.serializer.metadata')->isPublic());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_throws_when_serializer_has_no_definition(): void
     {
         $this->expectException('InvalidArgumentException');

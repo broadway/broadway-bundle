@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class SagaConfigurationTest extends TestCase
@@ -26,9 +27,7 @@ class SagaConfigurationTest extends TestCase
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_saga_state_repository_to_not_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(
@@ -44,9 +43,7 @@ class SagaConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_allows_the_saga_state_repository_to_be_configured(): void
     {
         $this->assertProcessedConfigurationEquals(

@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class SerializerConfigurationTest extends TestCase
@@ -26,9 +27,7 @@ class SerializerConfigurationTest extends TestCase
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_default_serializers(): void
     {
         $this->assertProcessedConfigurationEquals(
@@ -44,9 +43,7 @@ class SerializerConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_configures_custom_serializers(): void
     {
         $this->assertProcessedConfigurationEquals(

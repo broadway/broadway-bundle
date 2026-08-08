@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Extension;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\BroadwayExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class EventStoreExtensionTest extends AbstractExtensionTestCase
 {
@@ -25,9 +26,7 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
         ];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_does_not_register_the_event_store_service_when_not_configured(): void
     {
         $this->load([]);
@@ -35,9 +34,7 @@ class EventStoreExtensionTest extends AbstractExtensionTestCase
         $this->assertFalse($this->container->hasParameter('broadway.event_store.service_id'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_the_event_store_service_when_configured(): void
     {
         $this->load([

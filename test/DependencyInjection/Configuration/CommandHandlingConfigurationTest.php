@@ -15,6 +15,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class CommandHandlingConfigurationTest extends TestCase
@@ -26,9 +27,7 @@ class CommandHandlingConfigurationTest extends TestCase
         return new Configuration();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_disables_logger_and_event_dispatching_by_default(): void
     {
         $this->assertProcessedConfigurationEquals(
@@ -43,9 +42,7 @@ class CommandHandlingConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_enables_event_dispatching_when_logger_is_enabled(): void
     {
         $this->assertProcessedConfigurationEquals(

@@ -16,6 +16,7 @@ namespace Broadway\Bundle\BroadwayBundle\DependencyInjection\CompilerPass;
 use Broadway\Bundle\BroadwayBundle\DependencyInjection\RegisterBusSubscribersCompilerPass;
 use Broadway\EventHandling\EventListener;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -33,9 +34,7 @@ class RegisterBusSubscribersCompilerPassTest extends AbstractCompilerPassTestCas
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function it_registers_event_bus_subscribers(): void
     {
         $this->setDefinition(
