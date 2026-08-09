@@ -45,7 +45,7 @@
     "broadway/broadway-saga": "^2.0",
     "matthiasnoback/symfony-config-test": "^6.2",
     "matthiasnoback/symfony-dependency-injection-test": "^6.2",
-    "monolog/monolog": "~2.0",
+    "monolog/monolog": "~3.10",
     "phpstan/phpstan": "^2.0",
     "phpunit/phpunit": "^11.5",
     "symfony/framework-bundle": "^6.4 || ^7.4 || ^8.0",
